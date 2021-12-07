@@ -13,7 +13,7 @@
 
     <div class="title">
         <h1>Neverland</h1>
-        <p>where the lost are found</p>
+        <p>a magical place where lost souls meet</p>
     </div>
 
     <div class="enter">
