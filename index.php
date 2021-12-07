@@ -17,8 +17,8 @@
     </div>
 
     <div class="enter">
-        <button type="button">Sign Up</button>
-        <button type="button">Log In</button>
+        <button type="button" id="sign-up-btn">Sign Up</button>
+        <button type="button" id="log-in-btn">Log In</button>
     </div>
     
 </body>
