@@ -1,3 +1,5 @@
+<?php require 'server.php' ?>
+
 <!DOCTYPE html>
 <html lang="en">
 
