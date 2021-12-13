@@ -10,7 +10,7 @@
     <title>Registration</title>
 </head>
 
-<body>
+<body style="background-color: blue;">
 
 </body>
 
