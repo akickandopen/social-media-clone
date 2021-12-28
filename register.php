@@ -49,6 +49,23 @@ if(isset($_POST['sign_up_btn'])){
         array_push($error_list, "Passwords don't match.");
     } 
 
+    // If there are no errors
+    if(empty($error_list)){
+        // encrypt password before adding into database
+        $pass = md5($pass);
+
+        // assign profile pic to the user
+        $profile_pic = "images/profile_pics/default/blank-profile-picture.png";
+
+        // send values into the databse
+        $query = "INSERT INTO users (first_name, last_name, email, password, date_registered, profile_pic, num_posts, num_likes, user_closed, friend_array) VALUES ('$fname', '$lname', '$email', '$pass', '$date', '$profile_pic', '0', '0', 'no', ',')";
+        if (mysqli_query($connect, $query)) {
+            echo "New record created successfully !";
+         } else {
+            echo "Error: " . $query . " " . mysqli_error($connect);
+         }
+    }
+
 }
 
 ?>
