@@ -1,5 +1,7 @@
 <?php require 'server.php'; 
 
+session_start();
+
 // Variables
 $fname = ""; //first name
 $lname = ""; //last name
@@ -12,11 +14,16 @@ $error = ""; //error messages
 if(isset($_POST['sign_up_btn'])){
 
     // Remove html tags from form values
-    $fname = strip_tags($_POST['sign_up_fname']); // remove html tags
+    $fname = strip_tags($_POST['sign_up_fname']);
     $lname = strip_tags($_POST['sign_up_lname']); 
     $email = strip_tags($_POST['sign_up_email']); 
     $pass = strip_tags($_POST['sign_up_pass']);
     $pass2 = strip_tags($_POST['sign_up_pass2']); 
+
+    // Store values into session variable
+    $_SESSION['sign_up_fname'] = $fname; 
+    $_SESSION['sign_up_lname'] = $lname; 
+    $_SESSION['sign_up_email'] = $email; 
 
     $date = date("Y-m-d"); //current date
     
@@ -32,13 +39,10 @@ if(isset($_POST['sign_up_btn'])){
             echo "Email already in use.";
         }
 
-
     }
     else {
         echo "Invalid email format";
     }
-
-
 
     // Check if passwords match
     if($pass != $pass2){
@@ -62,11 +66,30 @@ if(isset($_POST['sign_up_btn'])){
 <body>
 
     <form action="register.php" method="POST">
-        <input type="text" name="sign_up_fname" placeholder="First Name" required> <br>
-        <input type="text" name="sign_up_lname" placeholder="Last Name" required> <br>
-        <input type="email" name="sign_up_email" placeholder="Email" required> <br>
+        <input type="text" name="sign_up_fname" placeholder="First Name" 
+        value="<?php
+            if(isset($_SESSION['sign_up_fname'])){
+                echo $_SESSION['sign_up_fname'];
+            }?>" 
+            required> <br>
+
+        <input type="text" name="sign_up_lname" placeholder="Last Name" 
+        value="<?php
+            if(isset($_SESSION['sign_up_lname'])){
+                echo $_SESSION['sign_up_lname'];
+            }?>"
+            required> <br>
+
+        <input type="email" name="sign_up_email" placeholder="Email" 
+        value="<?php
+            if(isset($_SESSION['sign_up_email'])){
+                echo $_SESSION['sign_up_email'];
+            }?>"
+            required> <br>
+
         <input type="password" name="sign_up_pass" placeholder="Password" required> <br>
         <input type="password" name="sign_up_pass2" placeholder="Confirm Password" required> <br>
+        
         <input type="submit" name="sign_up_btn" value="Create an account"> 
     </form>
 
