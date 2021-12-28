@@ -9,7 +9,7 @@ $email = ""; //email address
 $pass = ""; //password
 $pass2 = ""; //confirm password
 $date = ""; //date signed up
-$error = ""; //error messages
+$error_list = array(); //error messages
 
 if(isset($_POST['sign_up_btn'])){
 
@@ -36,17 +36,17 @@ if(isset($_POST['sign_up_btn'])){
         $num_rows = mysqli_num_rows($email_check); // count no. of rows from $email_check
 
         if($num_rows > 0){
-            echo "Email already in use.";
+            array_push($error_list, "Email already in use."); // store error message into array
         }
 
     }
     else {
-        echo "Invalid email format";
+        array_push($error_list, "Invalid email format.");
     }
 
     // Check if passwords match
     if($pass != $pass2){
-        echo "Passwords don't match.";
+        array_push($error_list, "Passwords don't match.");
     } 
 
 }
@@ -86,10 +86,15 @@ if(isset($_POST['sign_up_btn'])){
                 echo $_SESSION['sign_up_email'];
             }?>"
             required> <br>
+        <?php 
+            if(in_array("Email already in use.", $error_list)) echo "Email already in use.<br>";
+            else if (in_array("Invalid email format.", $error_list)) echo "Invalid email format.<br>";
+        ?>
 
         <input type="password" name="sign_up_pass" placeholder="Password" required> <br>
         <input type="password" name="sign_up_pass2" placeholder="Confirm Password" required> <br>
-        
+        <?php if(in_array("Passwords don't match.", $error_list)) echo "Passwords don't match.<br>"; ?>
+
         <input type="submit" name="sign_up_btn" value="Create an account"> 
     </form>
 
