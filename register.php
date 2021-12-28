@@ -61,9 +61,15 @@ if(isset($_POST['sign_up_btn'])){
         $query = "INSERT INTO users (first_name, last_name, email, password, date_registered, profile_pic, num_posts, num_likes, user_closed, friend_array) VALUES ('$fname', '$lname', '$email', '$pass', '$date', '$profile_pic', '0', '0', 'no', ',')";
         if (mysqli_query($connect, $query)) {
             echo "New record created successfully !";
-         } else {
+        } else {
             echo "Error: " . $query . " " . mysqli_error($connect);
-         }
+        }
+
+        // clear session variables
+        $_SESSION['sign_up_fname'] = "";
+        $_SESSION['sign_up_lname'] = "";
+        $_SESSION['sign_up_email'] = "";
+
     }
 
 }
