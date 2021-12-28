@@ -1,3 +1,5 @@
+@import url("https://fonts.googleapis.com/css2?family=Questrial&family=Roboto&display=swap");
+
 * {
   margin: 0;
   padding: 0;
@@ -10,9 +12,17 @@ body {
   background-repeat: repeat-y;
   background-attachment: fixed;
   background-position: right;
+  font-family: "Roboto", sans-serif;
+}
+
+h1 {
+  margin-top: 28px;
+  margin-left: 28px;
+  font-family: "Questrial", sans-serif;
 }
 
 .tabs {
+  margin-left: 28px;
   display: flex;
   flex-wrap: wrap;
 }
