@@ -1,5 +1,6 @@
 <?php
     ob_start(); // turn on output buffering
+    session_start();
 
     $connect = mysqli_connect("localhost", "root", "", "bond_db");
 
