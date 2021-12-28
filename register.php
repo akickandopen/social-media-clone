@@ -16,6 +16,13 @@
 <body>
 
     <form action="register.php" method="POST">
+        <input type="email" name="login_email" placeholder="Email">
+        <input type="password" name="login_pass" placeholder="Password">
+
+        <input type="submit" name="login_btn" value="Login">
+    </form>
+
+    <form action="register.php" method="POST">
         <input type="text" name="sign_up_fname" placeholder="First Name" 
         value="<?php
             if(isset($_SESSION['sign_up_fname'])){
