@@ -24,6 +24,9 @@
             
             exit();
         }
+        else {
+            array_push($error_list, "Email or password is incorrect.");
+        }
 
     }
 ?>

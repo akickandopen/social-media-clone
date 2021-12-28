@@ -17,10 +17,17 @@
 <body>
 
     <form action="register.php" method="POST">
-        <input type="email" name="login_email" placeholder="Email">
-        <input type="password" name="login_pass" placeholder="Password">
+        <input type="email" name="login_email" placeholder="Email"
+        value="<?php
+            if(isset($_SESSION['login_email'])){
+                echo $_SESSION['login_email'];
+            }?>"
+            required>
+        <input type="password" name="login_pass" placeholder="Password" required>
 
-        <input type="submit" name="login_btn" value="Login">
+        <input type="submit" name="login_btn" value="Login"> <br>
+        <?php if(in_array("Email or password is incorrect.", $error_list)) echo "Email or password is incorrect.<br>"; ?>
+
     </form>
 
     <form action="register.php" method="POST">
