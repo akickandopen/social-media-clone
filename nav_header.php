@@ -1,5 +1,12 @@
 <?php require 'server.php'; 
 
+    // redirect to register.php when user is not logged in
+    if (isset($_SESSION['first_name'])){
+        $userLoggedIn = $_SESSION['first_name'];
+    } 
+    else {
+        header("Location: register.php");
+    }
 ?>
 
 <!DOCTYPE html>
