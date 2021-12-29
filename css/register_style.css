@@ -16,13 +16,16 @@ body {
 }
 
 h1 {
-  margin-top: 28px;
-  margin-left: 28px;
+  margin-top: 2rem;
+  margin-left: 4rem;
+  font-size: 54px;
   font-family: "Questrial", sans-serif;
 }
 
 .tabs {
-  margin-left: 28px;
+  margin-top: 20px;
+  margin-left: 4rem;
+  width: 25%;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -31,7 +34,16 @@ h1 {
 }
 
 .tab-label {
-  padding: 24px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-flex: 1;
+      -ms-flex: auto;
+          flex: auto;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  padding: 1em;
   cursor: pointer;
 }
 
@@ -60,5 +72,22 @@ h1 {
 
 .tab-radio:checked + .tab-label + .tab-content {
   display: initial;
+}
+
+form {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+}
+
+input {
+  width: 100%;
+  margin-top: 1em;
+  background-color: #ffffff;
+  border: 1px solid #d4d4d4;
+  border-radius: 5px;
+  padding: 2%;
 }
 /*# sourceMappingURL=register_style.css.map */
