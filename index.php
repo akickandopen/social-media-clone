@@ -1,24 +1,7 @@
-<?php require 'server.php'; ?>
-
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Bond</title>
-</head>
-
-<body>
+<?php include("nav_header.php"); ?>
 
     <div class="title">
         <h1>Bond</h1>
-    </div>
-
-    <div class="enter">
-        <button type="button" id="sign-up-btn">Sign Up</button>
-        <button type="button" id="log-in-btn">Log In</button>
     </div>
     
 </body>
