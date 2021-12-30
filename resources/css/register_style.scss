@@ -22,57 +22,64 @@ h1 {
   font-family: "Questrial", sans-serif;
 }
 
-.tabs {
-  margin-top: 20px;
+section{
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
   margin-left: 4rem;
-  width: 25%;
-  display: flex;
-  flex-wrap: wrap;
+  margin-right: 4rem;
+  gap: 12rem;
 }
 
-.tab-label {
-  display: flex;
-  flex: auto;
-  justify-content: center;
-  padding: 1em;
-  cursor: pointer;
-}
+  .tabs {
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+  }
 
-.tab-radio {
-  display: none;
-}
+    .tab-label {
+      display: flex;
+      flex: auto;
+      justify-content: center;
+      padding: 1rem;
+      cursor: pointer;
+    }
 
-.tab-content {
-  order: 1;
-  width: 100%;
-  display: none;
-}
+    .tab-radio {
+      display: none;
+    }
 
-.tab-radio + .tab-label {
-  color: #666666;
-  border-bottom: 1px solid #d9d9d9;
-}
+    .tab-content {
+      order: 1;
+      width: 100%;
+      display: none;
+    }
 
-.tab-radio:checked + .tab-label {
-  font-weight: bold;
-  color: #333333;
-  border-bottom: 2px solid #009578;
-}
+    .tab-radio + .tab-label {
+      color: #666666;
+      border-bottom: 1px solid #d9d9d9;
+    }
 
-.tab-radio:checked + .tab-label + .tab-content {
-  display: initial;
-}
+    .tab-radio:checked + .tab-label {
+      font-weight: bold;
+      color: #333333;
+      border-bottom: 2px solid #009578;
+    }
 
-form {
-  display: flex;
-  flex-wrap: wrap;
-}
+    .tab-radio:checked + .tab-label + .tab-content {
+      display: initial;
+    }
 
-input {
-  width: 100%;
-  margin-top: 1em;
-  background-color: #ffffff;
-  border: 1px solid #d4d4d4;
-  border-radius: 5px;
-  padding: 2%;
-}
+      form {
+        display: flex;
+        flex-wrap: wrap;
+      }
+
+      input {
+        width: 100%;
+        margin-top: 1em;
+        background-color: #ffffff;
+        border: 1px solid #d4d4d4;
+        border-radius: 5px;
+        padding: 2%;
+      }
