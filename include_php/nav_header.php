@@ -17,7 +17,36 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="resources/css/nav_header_style.css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <title>Bond</title>
 </head>
 
 <body>
+
+    <nav>
+        <div class="nav-left">
+            <img src="resources/images/website/logo_bond.png" alt="Bond Logo">
+        </div>
+
+        <div class="nav-mid">
+            <div class="nav-search">
+                <i class="material-icons">search</i>
+                <input type="text" placeholder="Search...">
+            </div>
+        </div>
+
+        <div class="nav-right">
+            <div class="buttons">
+                <a href="#"><i class="material-icons">notifications</i></a>
+                <a href="#"><i class="material-icons">help_outline</i></a>
+            </div>
+            <div class="user">
+                <a href="#" class="user-avatar">
+                    <div class="user-avatar-container">
+                        <img src="resources/images/profile_pics/default/blank-profile-picture.png" alt="User profile picture">
+                    </div>
+                    <span class="material-icons">expand_more</span>
+                </a>
+            </div>
+        </div>
+    </nav>
