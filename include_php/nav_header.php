@@ -1,4 +1,4 @@
-<?php require 'server.php'; 
+<?php require 'include_php/server.php'; 
 
     // redirect to register.php when user is not logged in
     if (isset($_SESSION['first_name'])){

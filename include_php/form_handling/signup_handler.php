@@ -52,7 +52,7 @@
             $pass = md5($pass);
 
             // assign profile pic to the user
-            $profile_pic = "images/profile_pics/default/blank-profile-picture.png";
+            $profile_pic = "resources/images/profile_pics/default/blank-profile-picture.png";
 
             // send values into the databse
             $query = "INSERT INTO users (first_name, last_name, email, password, date_registered, profile_pic, num_posts, num_likes, user_closed, friend_array) VALUES ('$fname', '$lname', '$email', '$pass', '$date', '$profile_pic', '0', '0', 'no', ',')";

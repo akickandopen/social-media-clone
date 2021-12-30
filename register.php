@@ -1,7 +1,7 @@
 <?php 
-    require 'server.php'; 
-    require 'form_handling/signup_handler.php';
-    require 'form_handling/login_handler.php';
+    require 'include_php/server.php'; 
+    require 'include_php/form_handling/signup_handler.php';
+    require 'include_php/form_handling/login_handler.php';
 ?>
 
 <!DOCTYPE html>

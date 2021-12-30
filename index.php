@@ -1,4 +1,4 @@
-<?php include("nav_header.php"); ?>
+<?php include("include_php/nav_header.php"); ?>
 
     <div class="title">
         <h1>Bond</h1>
