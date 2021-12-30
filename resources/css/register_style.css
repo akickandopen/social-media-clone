@@ -8,7 +8,7 @@
 
 body {
   background-color: #fffcf8;
-  background-image: url("background/blush-blocks.png");
+  background-image: url("background/blush-blocks-rotated.png");
   background-repeat: repeat-y;
   background-attachment: fixed;
   background-position: right;
