@@ -1,3 +1,4 @@
+@import url("https://fonts.googleapis.com/css2?family=Questrial&family=Roboto&display=swap");
 * {
   margin: 0;
   padding: 0;
@@ -22,6 +23,7 @@ nav {
       -ms-flex-pack: justify;
           justify-content: space-between;
   background-color: #90A877;
+  padding: 8px;
 }
 
 .nav-left,
@@ -37,40 +39,42 @@ nav {
   margin-right: 8px;
 }
 
-.nav-left img {
-  width: 60px;
+.nav-left h1 {
+  font-size: 36px;
+  font-family: "Questrial", sans-serif;
+  color: white;
 }
 
 .nav-search {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
   background-color: white;
-  border-radius: 20px;
+  width: 440px;
+  border-radius: 12px;
   padding: 8px;
 }
 
 .nav-search input {
   outline: none;
   border: none;
+  width: 100%;
   background: transparent;
 }
 
-.user-avatar-container {
-  height: 40px;
-  display: inline-block;
-  position: relative;
-  overflow: hidden;
-  border-radius: 50%;
-  margin-left: 8px;
-  margin-right: 8px;
+.user-avatar {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
 }
 
-.user-avatar-container img {
+.user-avatar img {
   width: 40px;
+  -webkit-clip-path: circle();
+          clip-path: circle();
 }
 
 .buttons {
