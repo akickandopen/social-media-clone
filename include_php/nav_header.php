@@ -3,6 +3,8 @@
     // redirect to register.php when user is not logged in
     if (isset($_SESSION['first_name'])){
         $userLoggedIn = $_SESSION['first_name'];
+        $user_details_query = mysqli_query($connect, "SELECT * FROM users WHERE first_name='$userLoggedIn'");
+        $user = mysqli_fetch_array($user_details_query);
     } 
     else {
         header("Location: register.php");
@@ -42,7 +44,8 @@
             </div>
             <div class="user">
                 <a href="#" class="user-avatar">
-                    <img src="resources/images/profile_pics/default/blank-profile-picture.png" alt="User profile picture">
+                    <img src="<?php echo $user['profile_pic']; ?>" alt="User profile picture">
+                    <?php echo $user['first_name']; ?>
                     <span class="material-icons">expand_more</span>
                 </a>
             </div>
