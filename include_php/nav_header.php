@@ -25,7 +25,7 @@
 
     <nav>
         <div class="nav-left">
-            <img src="resources/images/website/logo_bond.png" alt="Bond Logo">
+            <h1>Bond</h1>
         </div>
 
         <div class="nav-mid">
@@ -42,9 +42,7 @@
             </div>
             <div class="user">
                 <a href="#" class="user-avatar">
-                    <div class="user-avatar-container">
-                        <img src="resources/images/profile_pics/default/blank-profile-picture.png" alt="User profile picture">
-                    </div>
+                    <img src="resources/images/profile_pics/default/blank-profile-picture.png" alt="User profile picture">
                     <span class="material-icons">expand_more</span>
                 </a>
             </div>
