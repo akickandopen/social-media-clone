@@ -57,9 +57,14 @@ nav {
   align-items: center;
 }
 
+  .user-avatar:hover {
+    background: #6c7e59;
+    transition: ease-in-out 0.1s;
+  }
+
   .user-avatar img {
-    width: 40px;
-    clip-path: circle();
+    width: 32px;
+    clip-path: circle(); // crop image in a circle
   }
 
 .buttons{
@@ -70,3 +75,8 @@ nav {
   .buttons i {
       padding: 8px;
   }
+
+  .buttons i:hover {
+    background: #6c7e59;
+    transition: ease-in-out 0.1s;
+}
