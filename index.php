@@ -1,4 +1,14 @@
-<?php include("include_php/nav_header.php"); ?>
+<?php 
+    include("include_php/nav_header.php"); 
+    include("include_php/classes/User.php");
+    include("include_php/classes/Post.php");
+
+    if(isset($_POST['post'])){
+        $post = new Post($connect, $userLoggedIn);
+        $post->submitPost($_POST['post-text-area']);
+        header("Location: index.php");
+    }
+?>
 
 <div class="wrapper">
 
@@ -15,6 +25,10 @@
 
     <div class="card">
         <!--additional card-->
+        <?php
+            $user_obj = new User($connect, $userLoggedIn);
+            echo $user_obj->getFirstAndLastName();
+        ?>
     </div>
 </div>
 
