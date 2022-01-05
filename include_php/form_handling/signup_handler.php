@@ -2,6 +2,7 @@
     // Variables
     $fname = ""; //first name
     $lname = ""; //last name
+    $username = ""; //username
     $email = ""; //email address
     $pass = ""; //password
     $pass2 = ""; //confirm password
@@ -51,11 +52,26 @@
             // encrypt password before adding into database
             $pass = md5($pass);
 
+            //generate username from first and last name in lowercase
+            $username = strtolower($fname . $lname);
+
+            //check if username is already in the database
+            $check_username_query = mysqli_query($connect, "SELECT username FROM users WHERE username='$username'");
+
+            $i = 0;
+
+            //add number to the username if it exists
+            while(mysqli_num_rows($check_username_query) != 0){
+                $i++;
+                $username = $username . "_" . $i;
+                $check_username_query = mysqli_query($connect, "SELECT username FROM users WHERE username='$username'");
+            }
+
             // assign profile pic to the user
             $profile_pic = "resources/images/profile_pics/default/blank-profile-picture.png";
 
             // send values into the databse
-            $query = "INSERT INTO users (first_name, last_name, email, password, date_registered, profile_pic, num_posts, num_likes, user_closed, friend_array) VALUES ('$fname', '$lname', '$email', '$pass', '$date', '$profile_pic', '0', '0', 'no', ',')";
+            $query = "INSERT INTO users (first_name, last_name, username, email, password, date_registered, profile_pic, num_posts, num_likes, user_closed, friend_array) VALUES ('$fname', '$lname', '$username', '$email', '$pass', '$date', '$profile_pic', '0', '0', 'no', ',')";
             if (mysqli_query($connect, $query)) {
                 echo "New record created successfully !";
             } else {
