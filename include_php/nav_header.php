@@ -1,9 +1,9 @@
 <?php require 'include_php/server.php'; 
 
     // redirect to register.php when user is not logged in
-    if (isset($_SESSION['first_name'])){
-        $userLoggedIn = $_SESSION['first_name'];
-        $user_details_query = mysqli_query($connect, "SELECT * FROM users WHERE first_name='$userLoggedIn'");
+    if (isset($_SESSION['user_id'])){
+        $userLoggedIn = $_SESSION['user_id'];
+        $user_details_query = mysqli_query($connect, "SELECT * FROM users WHERE user_id='$userLoggedIn'");
         $user = mysqli_fetch_array($user_details_query);
     } 
     else {
@@ -42,6 +42,9 @@
             <div class="buttons">
                 <a href="#"><i class="material-icons">notifications</i></a>
                 <a href="#"><i class="material-icons">help_outline</i></a>
+                <a href="include_php/logout.php">
+                    <i class="material-icons">logout</i>
+                </a>
             </div>
             <div class="user">
                 <a href="#" class="user-avatar">
