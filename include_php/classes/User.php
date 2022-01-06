@@ -26,6 +26,17 @@
             $row = mysqli_fetch_array($query);
             return $row['first_name'] . " " . $row['last_name'];
         }
+
+        public function isClosed(){
+            $user_id = $this->user['user_id'];
+            $query = mysqli_query($this->connect, "SELECT user_closed FROM users WHERE user_id='$user_id'");
+            $row = mysqli_fetch_array($query);
+
+            if($row['user_closed'] == 'no')
+                return false;
+            else
+                return true;
+        }
     }
 
 ?>
