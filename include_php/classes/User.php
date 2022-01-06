@@ -9,6 +9,10 @@
             $this->user = mysqli_fetch_array($user_details_query);
         }
 
+        public function getUserID() {
+            return $this->user['user_id'];
+        }
+
         public function getUsername() {
             return $this->user['username'];
         }
@@ -28,8 +32,8 @@
         }
 
         public function isClosed(){
-            $user_id = $this->user['user_id'];
-            $query = mysqli_query($this->connect, "SELECT user_closed FROM users WHERE user_id='$user_id'");
+            $username = $this->user['username'];
+            $query = mysqli_query($this->connect, "SELECT user_closed FROM users WHERE username='$username'");
             $row = mysqli_fetch_array($query);
 
             if($row['user_closed'] == 'no')
