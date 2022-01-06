@@ -72,17 +72,21 @@
                 $interval = $start_date->diff($end_date); // difference between start and end date
 
                 $month_interval = $interval->m;
+                $day_interval = $interval->d;
+                $hour_interval = $interval->h;
+                $min_interval = $interval->i;
+                $sec_interval = $interval->s;
 
                 if($month_interval >= 1){ // if interval is more than or equal to 1 month
 
-                    if($interval->d == 0){ // if interval is exactly one month
+                    if($day_interval == 0){ // if interval is exactly one month
                         $days = " ago"; 
                     } 
-                    else if($interval->d == 1) { 
+                    else if($day_interval == 1) { 
                         $days = $interval->d . " day ago"; // add "1 day ago"
                     }
                     else { 
-                        $days = $interval->d . " days ago"; // add "1+ days ago"
+                        $days = $day_interval . " days ago"; // add "1+ days ago"
                     }
 
                     if($month_interval == 1){ // if interval is one month ago
@@ -91,52 +95,54 @@
                         $time_interval_message = $month_interval . " months" . " and" . $days;
                     }
                 }
-                else if($interval->d >= 1){ // if interval is more than or equal to 1 day
+                else if($day_interval >= 1){ // if interval is more than or equal to 1 day
 
-                    if($interval->d == 1) { 
+                    if($day_interval == 1) { 
                         $time_interval_message = "Yesterday"; 
                     }
                     else { 
-                        $time_interval_message = $interval->d . " days ago";
+                        $time_interval_message = $day_interval . " days ago";
                     }
                 }
-                else if($interval->h >= 1){ // if interval is more than or equal to 1 hour
+                else if($hour_interval >= 1){ // if interval is more than or equal to 1 hour
                     
-                    if($interval->h == 1) { 
-                        $time_interval_message = $interval->h . " hour ago"; 
+                    if($hour_interval == 1) { 
+                        $time_interval_message = $hour_interval . " hour ago"; 
                     }
                     else { 
-                        $time_interval_message = $interval->h . " hours ago";
+                        $time_interval_message = $hour_interval . " hours ago";
                     }
                 }
-                else if($interval->i >= 1){ // if interval is more than or equal to 1 minute
+                else if($min_interval >= 1){ // if interval is more than or equal to 1 minute
                     
-                    if($interval->i == 1) { 
-                        $time_interval_message = $interval->i . " minute ago"; 
+                    if($min_interval == 1) { 
+                        $time_interval_message = $min_interval . " minute ago"; 
                     }
                     else { 
-                        $time_interval_message = $interval->i . " minutes ago"; 
+                        $time_interval_message = $min_interval . " minutes ago"; 
                     }
                 }
                 else{ 
 
-                    if($interval->s < 15) { // if interval is less than 15 seconds
+                    if($sec_interval < 15) { // if interval is less than 15 seconds
                         $time_interval_message = "Just now";
                     }
                     else { 
-                        $time_interval_message = $interval->s . " seconds ago";
+                        $time_interval_message = $sec_interval . " seconds ago";
                     }
                 }
 
-                $post_str .= "<div class='status_post'>
-                                <div class='post_profile_pic'>
-                                    <img src='$profile_pic' width='50' alt='Profile Picture'>
+                $post_str .= "<div class='status-post card'>
+                                <div class='post-details'>
+                                    <div class='post-details-profile'>
+                                        <img src='$profile_pic' width='36' alt='Profile Picture'>
+                                        <a href='$added_by'> $first_name $last_name </a>
+                                    </div>
+                                    <div class='post-details-time'>
+                                        $time_interval_message
+                                    </div>
                                 </div>
-                                <div class='posted_by'>
-                                    <a href='$added_by'> $first_name $last_name </a> &nbsp;&nbsp;&nbsp;
-                                    $time_interval_message
-                                </div>
-                                <div id='post_body'>
+                                <div id='post-body'>
                                     $body <br>
                                 </div>
                             </div>";
