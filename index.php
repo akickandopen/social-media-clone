@@ -3,8 +3,10 @@
     include("include_php/classes/User.php");
     include("include_php/classes/Post.php");
 
+    $user_obj = new User($connect, $userLoggedIn);
+    $post = new Post($connect, $userLoggedIn);
+
     if(isset($_POST['post'])){
-        $post = new Post($connect, $userLoggedIn);
         $post->submitPost($_POST['post-text-area']);
         header("Location: index.php");
     }
@@ -21,13 +23,17 @@
             <textarea name="post-text-area" id="post-text-area" placeholder="Write a post..."></textarea>
             <input type="submit" name="post" id="post-submit-btn" value="Post">
         </form>
+
+        <?php
+            $post->loadPosts();
+        ?>
     </div>
 
     <div class="card">
         <!--additional card-->
         <?php
-            $user_obj = new User($connect, $userLoggedIn);
             echo $user_obj->getFirstAndLastName();
+            echo $user_obj->getUserID();
         ?>
     </div>
 </div>
