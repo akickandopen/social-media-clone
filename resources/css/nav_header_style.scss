@@ -18,7 +18,7 @@ body {
 nav {
   display: flex;
   justify-content: space-between;
-  background-color: #90A877;
+  background-color: #5EA3A3;
   padding: 8px;
 }
 
@@ -39,7 +39,7 @@ nav {
 
 .nav-search {
   display: flex;
-  background-color: white;
+  background-color: #488B8F;
   width: 440px;
   border-radius: 12px;
   padding: 8px;
@@ -50,6 +50,12 @@ nav {
     border: none;
     width: 100%;
     background: transparent;
+    color: white;
+  }
+
+  ::placeholder {
+    color: white;
+    opacity: 1; /* Firefox */
   }
 
 .user-avatar {
