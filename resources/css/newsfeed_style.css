@@ -9,12 +9,13 @@
 }
 
 .card {
+  margin-bottom: 12px;
   padding: 12px;
-  background-color: white;
+  background-color: #fdfcfc;
   border: 1px solid #d3d3d3;
-  border-radius: 5px;
-  -webkit-box-shadow: 2px 2px 1px #d3d3d3;
-          box-shadow: 2px 2px 1px #d3d3d3;
+  border-radius: 12px;
+  -webkit-box-shadow: #63636333 0px 2px 8px 0px;
+          box-shadow: #63636333 0px 2px 8px 0px;
 }
 
 .newsfeed {
@@ -30,5 +31,37 @@
   padding: 8px;
   border: 1px solid #d3d3d3;
   border-radius: 5px;
+}
+
+.status-post {
+  padding: 12px;
+}
+
+.post-details {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+}
+
+.post-details-profile {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  gap: 12px;
+}
+
+.post-details-profile img {
+  -webkit-clip-path: circle();
+          clip-path: circle();
+}
+
+#post-body {
+  padding: 12px;
 }
 /*# sourceMappingURL=newsfeed_style.css.map */
