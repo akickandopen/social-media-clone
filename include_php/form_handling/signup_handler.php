@@ -61,8 +61,7 @@
             $i = 0;
 
             //add number to the username if it exists
-            while(mysqli_num_rows($check_username_query) != 0){
-                $i++;
+            for($i = 0; mysqli_num_rows($check_username_query) != 0; $i++){
                 $username = $username . "_" . $i;
                 $check_username_query = mysqli_query($connect, "SELECT username FROM users WHERE username='$username'");
             }
