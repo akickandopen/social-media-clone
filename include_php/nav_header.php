@@ -1,9 +1,9 @@
 <?php require 'include_php/server.php'; 
 
     // redirect to register.php when user is not logged in
-    if (isset($_SESSION['user_id'])){
-        $userLoggedIn = $_SESSION['user_id'];
-        $user_details_query = mysqli_query($connect, "SELECT * FROM users WHERE user_id='$userLoggedIn'");
+    if (isset($_SESSION['id'])){
+        $userLoggedIn = $_SESSION['id'];
+        $user_details_query = mysqli_query($connect, "SELECT * FROM users WHERE id='$userLoggedIn'");
         $user = mysqli_fetch_array($user_details_query);
     } 
     else {

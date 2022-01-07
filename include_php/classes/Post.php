@@ -22,17 +22,17 @@
                 $date_added = date("Y-m-d H:i:s");
 
                 //get username and user ID
-                $added_by = $this->user_obj->getUsername();
-                $added_by_id = $this->user_obj->getUserID();
+                $user_by = $this->user_obj->getUsername();
+                $user_by_id = $this->user_obj->getUserID();
 
                 //insert post in database
-                $query = mysqli_query($this->connect, "INSERT INTO posts (body, added_by_id, added_by, date_added, user_closed, post_deleted, likes) VALUES('$body', '$added_by_id', '$added_by', '$date_added', 'no', 'no', '0')");
+                $query = mysqli_query($this->connect, "INSERT INTO posts (body, user_by_id, user_by, date_added, user_by_closed, post_deleted, likes) VALUES('$body', '$user_by_id', '$user_by', '$date_added', 'no', 'no', '0')");
                 $returned_id = mysqli_insert_id($this->connect);
 
                 //update number of posts
                 $num_posts = $this->user_obj->getNumPosts();
                 $num_posts++;
-                $update_query = mysqli_query($this->connect, "UPDATE users SET num_posts='$num_posts' WHERE username='$added_by'");
+                $update_query = mysqli_query($this->connect, "UPDATE users SET num_posts='$num_posts' WHERE username='$user_by'");
             
             }
 
@@ -47,18 +47,18 @@
             while($row = mysqli_fetch_array($posts_data)){
                 $id = $row['id'];
                 $body = $row['body'];
-                $added_by_id = $row['added_by_id'];
-                $added_by = $row['added_by'];
+                $user_by_id = $row['user_by_id'];
+                $user_by = $row['user_by'];
                 $date_time = $row['date_added'];
 
                 //Check if user who added the post is closed
-                $added_by_obj = new User($this->connect, $added_by_id);
-                if($added_by_obj->isClosed()){
+                $user_by_obj = new User($this->connect, $user_by_id);
+                if($user_by_obj->isClosed()){
                     continue;
                 }
 
                 //select user's first name, last name, and profile pic
-                $user_details_query = mysqli_query($this->connect, "SELECT first_name, last_name, profile_pic FROM users WHERE username='$added_by'");
+                $user_details_query = mysqli_query($this->connect, "SELECT first_name, last_name, profile_pic FROM users WHERE username='$user_by'");
                 $user_row = mysqli_fetch_array($user_details_query);
 
                 $first_name = $user_row['first_name'];
@@ -136,7 +136,7 @@
                                 <div class='post-details'>
                                     <div class='post-details-profile'>
                                         <img src='$profile_pic' width='36' alt='Profile Picture'>
-                                        <a href='$added_by'> $first_name $last_name </a>
+                                        <a href='$user_by'> $first_name $last_name </a>
                                     </div>
                                     <div class='post-details-time'>
                                         $time_interval_message

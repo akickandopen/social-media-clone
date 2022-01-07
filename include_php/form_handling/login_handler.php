@@ -16,8 +16,8 @@
             // access results from query into $row
             $row = mysqli_fetch_array($check_db_query);
 
-            $user_id = $row['user_id'];
-            $_SESSION['user_id'] = $user_id;
+            $user_id = $row['id'];
+            $_SESSION['id'] = $user_id;
 
             // redirect to index.php
             header("Location: index.php");
