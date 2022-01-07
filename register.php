@@ -24,7 +24,22 @@
     <section>
         <div class="tabs">
             <input type="radio" name="tab-ex" id="tab-sign-up" class="tab-radio" checked>
-            <label for="tab-sign-up" class="tab-label">Sign Up</label>
+            <label for="tab-sign-up" class="tab-label">Log In</label>
+            <div class="tab-content">
+                <form action="register.php" method="POST">
+                    <input type="email" name="login_email" placeholder="Email" value="<?php
+                        if(isset($_SESSION['login_email'])){
+                            echo $_SESSION['login_email'];
+                        }?>" required> <br>
+                    <input type="password" name="login_pass" placeholder="Password" required> <br>
+
+                    <input type="submit" name="login_btn" value="Login"> <br>
+                    <?php if(in_array("Email or password is incorrect.", $error_list)) echo "Email or password is incorrect.<br>"; ?>
+                </form>
+            </div>
+
+            <input type="radio" name="tab-ex" id="tab-login" class="tab-radio">
+            <label for="tab-login" class="tab-label">Sign Up</label>
             <div class="tab-content">
                 <form action="register.php" method="POST">
                     <input type="text" name="sign_up_fname" placeholder="First Name" value="<?php
@@ -51,21 +66,6 @@
                     <?php if(in_array("Passwords don't match.", $error_list)) echo "Passwords don't match.<br>"; ?>
 
                     <input type="submit" name="sign_up_btn" value="Create an account">
-                </form>
-            </div>
-
-            <input type="radio" name="tab-ex" id="tab-login" class="tab-radio">
-            <label for="tab-login" class="tab-label">Log In</label>
-            <div class="tab-content">
-                <form action="register.php" method="POST">
-                    <input type="email" name="login_email" placeholder="Email" value="<?php
-                        if(isset($_SESSION['login_email'])){
-                            echo $_SESSION['login_email'];
-                        }?>" required> <br>
-                    <input type="password" name="login_pass" placeholder="Password" required> <br>
-
-                    <input type="submit" name="login_btn" value="Login"> <br>
-                    <?php if(in_array("Email or password is incorrect.", $error_list)) echo "Email or password is incorrect.<br>"; ?>
                 </form>
             </div>
         </div>
