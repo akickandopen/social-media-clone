@@ -35,9 +35,34 @@
                     <input type="submit" name="post" id="post-submit-btn" value="Post">
                 </form>
 
-                <?php
+                <ul class="nav nav-tabs">
+                    <li class="nav-item">
+                        <a class="nav-link active" data-bs-toggle="tab" href="#all-posts">All Posts</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" data-bs-toggle="tab" href="#friends-posts">Friends</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" data-bs-toggle="tab" href="#trending-posts">Trending</a>
+                    </li>
+                </ul>
+
+                <div class="tab-content">
+                    <div class="tab-pane active" id="all-posts">
+                        <?php
+                            $post->loadPosts();
+                        ?>
+                    </div>
+                    <div class="tab-pane active" id="friends-posts">
+                        GET FRIENDS
+                    </div>
+                    <div class="tab-pane active" id="trending-posts">
+                        Trending
+                    </div>
+                </div>
+                <!-- <?php
                     $post->loadPosts();
-                ?>
+                ?> -->
             </div>
         </div>
         <div class="col-md-2">
