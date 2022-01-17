@@ -53,10 +53,12 @@
                             $post->loadPosts();
                         ?>
                     </div>
-                    <div class="tab-pane active" id="friends-posts">
-                        GET FRIENDS
+                    <div class="tab-pane" id="friends-posts">
+                        <?php
+                            $post->loadPostsFriends();
+                        ?>
                     </div>
-                    <div class="tab-pane active" id="trending-posts">
+                    <div class="tab-pane" id="trending-posts">
                         Trending
                     </div>
                 </div>
