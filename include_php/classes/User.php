@@ -41,6 +41,16 @@
             else
                 return true;
         }
+
+        public function isFriend($username_friend_check){
+            $username_friend = "," . $username_friend_check . ",";
+
+            if((strstr($this->user['friend_array'], $username_friend) || $username_friend_check == $this->user['username'])){
+                return true;
+            } else {
+                return false;
+            }
+        }
     }
 
 ?>
