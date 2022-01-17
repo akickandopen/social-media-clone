@@ -23,7 +23,6 @@ nav {
 }
 
 .nav-left,
-.nav-mid,
 .nav-right {
   display: flex;
   align-items: center;
@@ -32,6 +31,7 @@ nav {
 }
 
 .nav-left h1 {
+  margin: 0;
   font-size: 36px;
   font-family: "Questrial", sans-serif;
   color: white;
@@ -53,9 +53,9 @@ nav {
     color: white;
   }
 
-  ::placeholder {
+  .nav-search input::placeholder {
     color: white;
-    opacity: 1; /* Firefox */
+    opacity: 1;
   }
 
 .user-avatar {
@@ -64,7 +64,7 @@ nav {
 }
 
   .user-avatar:hover {
-    background: #6c7e59;
+    background: #538f92;
     transition: ease-in-out 0.1s;
   }
 
@@ -83,6 +83,6 @@ nav {
   }
 
   .buttons i:hover {
-    background: #6c7e59;
+    background: #538f92;
     transition: ease-in-out 0.1s;
 }

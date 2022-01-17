@@ -27,7 +27,6 @@ nav {
 }
 
 .nav-left,
-.nav-mid,
 .nav-right {
   display: -webkit-box;
   display: -ms-flexbox;
@@ -40,6 +39,7 @@ nav {
 }
 
 .nav-left h1 {
+  margin: 0;
   font-size: 36px;
   font-family: "Questrial", sans-serif;
   color: white;
@@ -63,28 +63,24 @@ nav {
   color: white;
 }
 
-::-webkit-input-placeholder {
+.nav-search input::-webkit-input-placeholder {
   color: white;
   opacity: 1;
-  /* Firefox */
 }
 
-:-ms-input-placeholder {
+.nav-search input:-ms-input-placeholder {
   color: white;
   opacity: 1;
-  /* Firefox */
 }
 
-::-ms-input-placeholder {
+.nav-search input::-ms-input-placeholder {
   color: white;
   opacity: 1;
-  /* Firefox */
 }
 
-::placeholder {
+.nav-search input::placeholder {
   color: white;
   opacity: 1;
-  /* Firefox */
 }
 
 .user-avatar {
@@ -97,7 +93,7 @@ nav {
 }
 
 .user-avatar:hover {
-  background: #6c7e59;
+  background: #538f92;
   -webkit-transition: ease-in-out 0.1s;
   transition: ease-in-out 0.1s;
 }
@@ -122,7 +118,7 @@ nav {
 }
 
 .buttons i:hover {
-  background: #6c7e59;
+  background: #538f92;
   -webkit-transition: ease-in-out 0.1s;
   transition: ease-in-out 0.1s;
 }
