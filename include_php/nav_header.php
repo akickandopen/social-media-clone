@@ -33,14 +33,18 @@
     <nav>
         <div class="nav-left">
             <h1>Bond</h1>
-        </div>
-
-        <div class="nav-mid">
             <div class="nav-search">
                 <i class="material-icons">search</i>
                 <input type="text" placeholder="Search...">
             </div>
         </div>
+
+        <!-- <div class="nav-mid">
+            <div class="nav-search">
+                <i class="material-icons">search</i>
+                <input type="text" placeholder="Search...">
+            </div>
+        </div> -->
 
         <div class="nav-right">
             <div class="buttons">
