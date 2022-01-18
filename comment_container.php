@@ -60,11 +60,6 @@
         }
     ?>
 
-    <form action="comment_container.php?post_id=<?php echo $post_id; ?>" id="comment_form" name="postComment<?php echo $post_id;?>" method="POST">
-        <textarea name="comment_body"></textarea>
-        <input type="submit" name="postComment<?php echo $post_id; ?>" value="Post">
-    </form>
-
     <!--Load Comments-->
     <?php
         $get_comments = mysqli_query($connect, "SELECT * FROM comments WHERE post_id='$post_id' ORDER BY id ASC");
@@ -144,20 +139,28 @@
                          $time_interval_message = $sec_interval . " seconds ago";
                      }
                  }
+
+                 ?>
+                 <div id="comment_section">
+                    <a href="#" target="_parent">
+                        <img src="<?php echo $user_obj->getPFP(); ?>" title="<?php echo $comment_by;?>" width="30">
+                    </a>
+                    <a href="#" target="_parent">
+                        <strong><?php echo $comment_by; ?></strong>
+                    </a> <br>
+                    <?php echo $time_interval_message . "<br>" . $comment_body; ?>
+                    <hr>
+                    
+                </div>
+                 <?php
             }
         }
     ?>
-    <div id="comment_section">
-        <a href="<?php echo $user_obj->getUsername();?>" target="_parent">
-            <img src="<?php echo $user_obj->getPFP(); ?>" title="<?php echo $comment_by;?>" width="30">
-        </a>
-        <a href="<?php echo $user_obj->getUsername();?>" target="_parent">
-            <strong><?php echo $user_obj->getFirstAndLastName(); ?></strong>
-        </a> <br>
-        <?php echo $time_interval_message . "<br>" . $comment_body; ?>
-        <hr>
-        
-    </div>
+
+    <form action="comment_container.php?post_id=<?php echo $post_id; ?>" id="comment_form" name="postComment<?php echo $post_id;?>" method="POST">
+        <textarea name="comment_body"></textarea>
+        <input type="submit" name="postComment<?php echo $post_id; ?>" value="Post">
+    </form>
 
 </body>
 </html>
