@@ -20,7 +20,7 @@
                 <div class="card">
                     <?php
                         echo "Hi, " .$user_obj->getFirstAndLastName() ." ";
-                        echo $user_obj->getUserID();
+                        echo $userLoggedIn;
                     ?>
                 </div>
             </div>
@@ -49,9 +49,13 @@
 
                 <div class="tab-content">
                     <div class="tab-pane active" id="all-posts">
-                        <?php
-                            $post->loadPosts();
-                        ?>
+                        <!-- <?php
+                            $post->loadPostsAll();
+                        ?> -->
+                        <div class="posts-area"></div>
+                        <div class="load-data"></div>
+                        <div class="load-data-message"></div>
+
                     </div>
                     <div class="tab-pane" id="friends-posts">
                         <?php
@@ -62,9 +66,6 @@
                         Trending
                     </div>
                 </div>
-                <!-- <?php
-                    $post->loadPosts();
-                ?> -->
             </div>
         </div>
         <div class="col-md-2">
@@ -78,9 +79,46 @@
     </div>
 </div>
 
-<!--for bootstrap-->
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
-    integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous">
+<script>
+var userLoggedIn = <?php echo $userLoggedIn; ?>;
+var limit = 7;
+var start = 0;
+var action = 'inactive';
+
+function loadPosts(limit, start) {
+    $.ajax({
+        url: "include_php/ajax_loading_posts.php",
+        method: "POST",
+        data: {limit:limit, start:start, userLoggedIn:userLoggedIn},
+        cache: false,
+
+        success: function(data) {
+            $('.posts-area').append(data);
+            if (data == '') {
+                $('.load-data-message').html("<p>No More Posts</p>");
+                action = 'active';
+            } else {
+                $('.load-data-message').html("<img src='resources/images/website/loading_icon.gif'>");
+                action = 'inactive';
+            }
+        }
+    });
+}
+
+if (action == 'inactive') {
+    action = 'active';
+    loadPosts(limit, start);
+}
+
+$(window).scroll(function() {
+    if ($(window).scrollTop() + $(window).height() > $(".posts-area").height() && action == 'inactive') {
+        action = 'active';
+        start = start + limit;
+        setTimeout(function() {
+            loadPosts(limit, start);
+        }, 1000);
+    }
+});
 </script>
 
 </body>
