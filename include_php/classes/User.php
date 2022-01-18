@@ -31,6 +31,13 @@
             return $row['first_name'] . " " . $row['last_name'];
         }
 
+        public function getPFP() {
+            $user_id = $this->user['id'];
+            $query = mysqli_query($this->connect, "SELECT profile_pic FROM users WHERE id='$user_id'");
+            $row = mysqli_fetch_array($query);
+            return $row['profile_pic'];
+        }
+
         public function isClosed(){
             $username = $this->user['username'];
             $query = mysqli_query($this->connect, "SELECT user_closed FROM users WHERE username='$username'");
@@ -46,9 +53,9 @@
             $username_friend = "," . $username_friend_check . ",";
 
             if((strstr($this->user['friend_array'], $username_friend) || $username_friend_check == $this->user['username'])){
-                return true;
-            } else {
                 return false;
+            } else {
+                return true;
             }
         }
     }
