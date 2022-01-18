@@ -49,21 +49,24 @@
 
                 <div class="tab-content">
                     <div class="tab-pane active" id="all-posts">
-                        <!-- <?php
-                            $post->loadPostsAll();
-                        ?> -->
+                        <?php
+                            $tab = "tab_all";
+                            $post->loadPosts($tab);
+                        ?>
                         <div class="posts-area"></div>
-                        <div class="load-data"></div>
                         <div class="load-data-message"></div>
-
                     </div>
                     <div class="tab-pane" id="friends-posts">
                         <?php
-                            $post->loadPostsFriends();
+                            $tab = "tab_friends";
+                            $post->loadPosts($tab);
                         ?>
                     </div>
                     <div class="tab-pane" id="trending-posts">
                         Trending
+                        <?php
+                            $tab = "tab_trends";
+                        ?>
                     </div>
                 </div>
             </div>
@@ -79,47 +82,47 @@
     </div>
 </div>
 
-<script>
-var userLoggedIn = <?php echo $userLoggedIn; ?>;
-var limit = 7;
-var start = 0;
-var action = 'inactive';
+<!-- <script>
+    var userLoggedIn = <?php echo $userLoggedIn; ?>;
+    var limit = 7;
+    var start = 0;
+    var action = 'inactive';
 
-function loadPosts(limit, start) {
-    $.ajax({
-        url: "include_php/ajax_loading_posts.php",
-        method: "POST",
-        data: {limit:limit, start:start, userLoggedIn:userLoggedIn},
-        cache: false,
+    function loadPosts(limit, start) {
+        $.ajax({
+            url: "include_php/ajax_loading_posts.php",
+            method: "POST",
+            data: {limit:limit, start:start, userLoggedIn:userLoggedIn},
+            cache: false,
 
-        success: function(data) {
-            $('.posts-area').append(data);
-            if (data == '') {
-                $('.load-data-message').html("<p>No More Posts</p>");
-                action = 'active';
-            } else {
-                $('.load-data-message').html("<img src='resources/images/website/loading_icon.gif'>");
-                action = 'inactive';
+            success: function(data) {
+                $('.posts-area').append(data);
+                if (data == '') {
+                    $('.load-data-message').html("<p>No More Posts</p>");
+                    action = 'active';
+                } else {
+                    $('.load-data-message').html("<img src='resources/images/website/loading_icon.gif'>");
+                    action = 'inactive';
+                }
             }
+        });
+    }
+
+    if (action == 'inactive') {
+        action = 'active';
+        loadPosts(limit, start);
+    }
+
+    $(window).scroll(function() {
+        if ($(window).scrollTop() + $(window).height() > $(".posts-area").height() && action == 'inactive') {
+            action = 'active';
+            start = start + limit;
+            setTimeout(function() {
+                loadPosts(limit, start);
+            }, 1000);
         }
     });
-}
-
-if (action == 'inactive') {
-    action = 'active';
-    loadPosts(limit, start);
-}
-
-$(window).scroll(function() {
-    if ($(window).scrollTop() + $(window).height() > $(".posts-area").height() && action == 'inactive') {
-        action = 'active';
-        start = start + limit;
-        setTimeout(function() {
-            loadPosts(limit, start);
-        }, 1000);
-    }
-});
-</script>
+</script> -->
 
 </body>
 
