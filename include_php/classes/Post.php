@@ -78,11 +78,13 @@
 
                     <script>
                         function toggleFunction<?php echo $id; ?>() {
-                            var element = document.getElementbyId("toggleComment<?php echo $id;?>");
-                                if(element.style.display === "none")
-						            element.style.display = "block";
-						        else
-						            element.style.display = "none";
+
+                            var x = document.getElementById("toggleComment<?php echo $id; ?>");
+                                if (x.style.display == "none") {
+                                    x.style.display = "block";
+                                } else {
+                                    x.style.display = "none";
+                                }
                         }
                     </script>
 
@@ -155,7 +157,7 @@
                         }
                     }
 
-                    $post_str .= "<div class='status-post card' onClick='javascript:toggleFunction$id()'>
+                    $post_str .= "<div class='status-post card'>
                                     <div class='post-details'>
                                         <div class='post-details-profile'>
                                             <img src='$profile_pic' width='36' alt='Profile Picture'>
@@ -168,7 +170,8 @@
                                     <div id='post-body'>
                                         $body <br>
                                     </div>
-                                    <div class='post_comment' id='toggleComment$id' style='display:block;'>
+                                    <button onClick='javascript:toggleFunction$id()'>clickme</button>
+                                    <div class='post_comment' id='toggleComment$id' style='display:none;'>
                                         <iframe src='comment_container.php?post_id=$id' id='comment_iframe' frameborder='0'></iframe>
                                     </div>
                                  </div>
