@@ -12,10 +12,6 @@
             $body = strip_tags($body); //remove html tags
             $body = mysqli_real_escape_string($this->connect, $body);
 
-            //allow line breaks in posts
-            // $body = str_replace('\r\n', '\n', $body);
-            // $body = nl2br($body);
-
             $check_empty = preg_replace('/\s+/', '', $body); //deletes all spaces
             if($check_empty != ""){
                 //current date and time
@@ -62,10 +58,8 @@
                     }
 
                     $user_logged_obj = new User($this->connect, $userLoggedIn);
-                    if($tab == "tab_friends" && $user_logged_obj->isFriend($user_by)){
-                        // if($user_logged_obj->isFriend($user_by)){
-                            continue;
-                        // }
+                    if($tab == "tab_user" && $user_logged_obj->isUser($user_by)){
+                        continue;
                     }
 
                     //select user's first name, last name, and profile pic
@@ -184,11 +178,13 @@
                                     <div id='post-body'>
                                         $body <br>
                                         $file_img
-                                    </div>
-                                    <div class='post-options'>
-                                        <button onClick='javascript:toggleFunction$id()'>Comments</button>
-                                            $num_comments
-                                        <iframe src='like_option.php?post_id=$id'></iframe>
+                                        <div class='post-options'>
+                                            <button onClick='javascript:toggleFunction$id()' class='comment-icon'>
+                                                <i class='material-icons'>question_answer</i>
+                                            </button>
+                                                <p>$num_comments</p>
+                                            <iframe src='like_option.php?post_id=$id' scrolling='no'></iframe>
+                                        </div>
                                     </div>
                                     <div class='post-comment' id='toggleComment$id' style='display:none;'>
                                         <iframe src='comment_container.php?post_id=$id' id='comment_iframe' frameborder='0' width='100%'></iframe>
