@@ -56,23 +56,60 @@
     <div class="row justify-content-evenly">
         <div class="col-md-3">
             <div class="row">
-                <div class="card">
-                    <?php
-                        echo "Hi, " .$user_obj->getFirstAndLastName() ." ";
-                        echo $userLoggedIn;
-                    ?>
+                <div class="greeting card">
+                    <?php echo "<h3>Hi, " .$user_obj->getFirstName() ."</h3>"; ?>
                 </div>
             </div>
             <div class="row">
-                <div class="card">Trending List</div>
+                <div class="card-a">
+                    <div class="profile-title">
+                        <h4>Profile</h4>
+                        <button onClick="javascript:toggleProfile()"><i class="material-icons">arrow_drop_down_circle</i></button>
+                    </div>
+                    <div class="profile-info" id="toggleProfile">
+                        <div class="row">
+                            <div class="col-md-4">
+                                <p>First Name</p>
+                            </div>
+                            <div class="col">
+                                <p><?php echo $user_obj->getFirstName(); ?></p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-4">
+                                <p>Last Name</p>
+                            </div>
+                            <div class="col">
+                                <p><?php echo $user_obj->getLastName(); ?></p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-4">
+                                <p>Email</p>
+                            </div>
+                            <div class="col">
+                                <p><?php echo $user_obj->getEmail(); ?></p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <button class="update-profile-btn" data-bs-toggle="modal" data-bs-target="#myModal">Update Profile</button>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
         <div class="col-md-6">
             <div class="newsfeed">
                 <form action="index.php" class="post-form card" method="POST" enctype="multipart/form-data">
-                    <textarea name="post-text-area" id="post-text-area" placeholder="Write a post..."></textarea>
-                    <input type="file" name="file-img-upload" id="file-img-upload">
-                    <input type="submit" name="post" id="post-submit-btn" value="Post">
+                    <div class="body d-flex align-items-start">
+                        <img src="<?php echo $user_obj->getPFP(); ?>">
+                        <textarea name="post-text-area" id="post-text-area" placeholder="Write a post..."></textarea>
+                    </div>
+                    <div class="options d-flex justify-content-end align-items-center">
+                        <label for="file-img-upload"><i class="material-icons">image</i></label>
+                        <input type="file" name="file-img-upload" id="file-img-upload">
+                        <input type="submit" name="post" id="post-submit-btn" value="Post">
+                    </div>
                 </form>
 
                 <ul class="nav nav-tabs">
@@ -80,7 +117,7 @@
                         <a class="nav-link active" data-bs-toggle="tab" href="#all-posts">All Posts</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" data-bs-toggle="tab" href="#friends-posts">Friends</a>
+                        <a class="nav-link" data-bs-toggle="tab" href="#my-posts">My Posts</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" data-bs-toggle="tab" href="#trending-posts">Trending</a>
@@ -96,14 +133,18 @@
                         <div class="posts-area"></div>
                         <div class="load-data-message"></div>
                     </div>
-                    <div class="tab-pane" id="friends-posts">
+                    <div class="tab-pane" id="my-posts">
                         <?php
-                            $tab = "tab_friends";
+                            $tab = "tab_user";
                             $post->loadPosts($tab);
                         ?>
                     </div>
                     <div class="tab-pane" id="trending-posts">
-                        Trending
+                        <div class="card">
+                            <br>
+                            <p class="d-flex justify-content-center">No posts to show</p>
+                            <br>
+                        </div>
                         <?php
                             $tab = "tab_trends";
                         ?>
@@ -122,47 +163,34 @@
     </div>
 </div>
 
-<!-- <script>
-    var userLoggedIn = <?php echo $userLoggedIn; ?>;
-    var limit = 7;
-    var start = 0;
-    var action = 'inactive';
+<div id="myModal" class="modal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Update Profile</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary">Save changes</button>
+            </div>
+        </div>
+    </div>
 
-    function loadPosts(limit, start) {
-        $.ajax({
-            url: "include_php/ajax_loading_posts.php",
-            method: "POST",
-            data: {limit:limit, start:start, userLoggedIn:userLoggedIn},
-            cache: false,
+</div>
 
-            success: function(data) {
-                $('.posts-area').append(data);
-                if (data == '') {
-                    $('.load-data-message').html("<p>No More Posts</p>");
-                    action = 'active';
-                } else {
-                    $('.load-data-message').html("<img src='resources/images/website/loading_icon.gif'>");
-                    action = 'inactive';
-                }
+<script>
+    function toggleProfile() {
+        var x = document.getElementById("toggleProfile");
+            if (x.style.display == "block") {
+                x.style.display = "none";
+            } else {
+                x.style.display = "block";
             }
-        });
     }
-
-    if (action == 'inactive') {
-        action = 'active';
-        loadPosts(limit, start);
-    }
-
-    $(window).scroll(function() {
-        if ($(window).scrollTop() + $(window).height() > $(".posts-area").height() && action == 'inactive') {
-            action = 'active';
-            start = start + limit;
-            setTimeout(function() {
-                loadPosts(limit, start);
-            }, 1000);
-        }
-    });
-</script> -->
+</script>
 
 </body>
 
