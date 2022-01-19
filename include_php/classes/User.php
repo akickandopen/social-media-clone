@@ -17,6 +17,18 @@
             return $this->user['username'];
         }
 
+        public function getFirstName() {
+            return $this->user['first_name'];
+        }
+
+        public function getLastName() {
+            return $this->user['last_name'];
+        }
+
+        public function getEmail() {
+            return $this->user['email'];
+        }
+
         public function getNumPosts(){
             $user_id = $this->user['id'];
             $query = mysqli_query($this->connect, "SELECT num_posts FROM users WHERE id='$user_id'");
@@ -49,10 +61,8 @@
                 return true;
         }
 
-        public function isFriend($username_friend_check){
-            $username_friend = "," . $username_friend_check . ",";
-
-            if((strstr($this->user['friend_array'], $username_friend) || $username_friend_check == $this->user['username'])){
+        public function isUser($username_check){
+            if((strstr($this->user['username'], $username_check))){
                 return false;
             } else {
                 return true;
