@@ -188,8 +188,7 @@
                                     <div class='post-options'>
                                         <button onClick='javascript:toggleFunction$id()'>Comments</button>
                                             $num_comments
-                                        <button>Like</button>
-                                            0
+                                        <iframe src='like_option.php?post_id=$id'></iframe>
                                     </div>
                                     <div class='post-comment' id='toggleComment$id' style='display:none;'>
                                         <iframe src='comment_container.php?post_id=$id' id='comment_iframe' frameborder='0' width='100%'></iframe>
