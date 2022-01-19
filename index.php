@@ -7,8 +7,47 @@
     $post = new Post($connect, $userLoggedIn);
 
     if(isset($_POST['post'])){
-        $post->submitPost($_POST['post-text-area']);
-        header("Location: index.php");
+
+        $allowUpload = 1;
+        $fileImgName = $_FILES['file-img-upload']['name'];
+        $errorMessage = "";
+    
+        if($fileImgName != "") { // if fileImgName is not empty
+
+            $targetDir = "resources/images/posts/"; // target directory
+            $fileImgName = $targetDir . uniqid() . basename($fileImgName);
+            $fileImgType = pathinfo($fileImgName, PATHINFO_EXTENSION);
+    
+            if($_FILES['file-img-upload']['size'] > 10000000) {
+                $errorMessage = "The file is too large!";
+                $allowUpload = 0;
+            }
+    
+            if(strtolower($fileImgType) != "jpeg" && strtolower($fileImgType) != "png" && strtolower($fileImgType) != "jpg") {
+                $errorMessage = "Only jpeg, jpg and png files are allowed";
+                $allowUpload = 0;
+            }
+    
+            if($allowUpload) {
+                if(move_uploaded_file($_FILES['file-img-upload']['tmp_name'], $fileImgName)) {
+                    //image is uploaded
+                }
+                else {
+                    $allowUpload = 0; //image did not upload
+                }
+            }
+    
+        }
+    
+        if($allowUpload) {
+            $post->submitPost($_POST['post-text-area'], $fileImgName);
+            header("Location: index.php");
+        }
+        else {
+            echo "<div style='text-align:center;' class='alert alert-danger'>
+                    $errorMessage
+                </div>";
+        }
     }
 ?>
 
@@ -30,8 +69,9 @@
         </div>
         <div class="col-md-6">
             <div class="newsfeed">
-                <form action="index.php" class="post-form card" method="POST">
+                <form action="index.php" class="post-form card" method="POST" enctype="multipart/form-data">
                     <textarea name="post-text-area" id="post-text-area" placeholder="Write a post..."></textarea>
+                    <input type="file" name="file-img-upload" id="file-img-upload">
                     <input type="submit" name="post" id="post-submit-btn" value="Post">
                 </form>
 
