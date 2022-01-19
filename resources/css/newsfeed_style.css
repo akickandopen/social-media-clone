@@ -18,6 +18,7 @@
           box-shadow: #63636333 0px 2px 8px 0px;
 }
 
+/*****************WRITE POST*****************/
 .post-form {
   width: 100%;
 }
@@ -29,6 +30,7 @@
   border-radius: 5px;
 }
 
+/*****************LOAD POSTS*****************/
 .status-post {
   padding: 12px;
 }
@@ -60,4 +62,20 @@
 #post-body {
   padding: 12px;
 }
+
+.post-body-image {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+
+.post-body-image img {
+  max-width: 100%;
+  max-height: 300px;
+}
+
+/*****************COMMENTS*****************/
 /*# sourceMappingURL=newsfeed_style.css.map */
