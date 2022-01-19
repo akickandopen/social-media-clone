@@ -49,14 +49,16 @@
 
         $comment_to_id = $row['user_by_id']; // id of other user's post
         $comment_to = $row['user_by']; // name of other user
+
         $comment_by_id = $userLoggedIn; // id of current user logged in
-        $comment_by = $user_obj->getFirstAndLastName(); // name of current user logged in
+        $comment_by_username = $user_obj->getUsername(); // username of current user logged in
+        $comment_by_full_name = $user_obj->getFirstAndLastName(); // full name of current user logged in
 
         if(isset($_POST['postComment' . $post_id])){
             $comment_body = $_POST['comment_body'];
             $comment_body = mysqli_escape_string($connect, $comment_body);
             $date_time_now = date("Y-m-d H:i:s");
-            $insert_comment = mysqli_query($connect, "INSERT INTO comments VALUES (NULL, '$post_id', '$comment_to_id', '$comment_by_id', '$comment_body', '$comment_by', '$comment_to', '$date_time_now', 'no')");
+            $insert_comment = mysqli_query($connect, "INSERT INTO comments VALUES (NULL, '$post_id', '$comment_to_id', '$comment_to', '$comment_by_id', '$comment_by_username', '$comment_by_full_name', '$comment_body', '$date_time_now', 'no')");
 
             echo "<p>Comment Posted! </p>";
         }
@@ -70,7 +72,8 @@
         if($count != 0){
             while($comment = mysqli_fetch_array($get_comments)){
                 $comment_to = $comment['comment_to'];
-                $comment_by = $comment['comment_by'];
+                $comment_by_username = $comment['comment_by'];
+                $comment_by_full_name = $comment['comment_by_name'];
                 $comment_body = $comment['comment_body'];
                 $date_added = $comment['date_added'];
                 $comment_deleted = $comment['comment_deleted'];
@@ -145,8 +148,8 @@
                  ?>
                  <div id="comment-section">
                      <div class="post-details-profile">
-                        <a href="#" target="_parent"><img src="<?php echo $user_obj->getPFP(); ?>" title="<?php echo $comment_by;?>" width="30"></a>
-                        <a href="#" target="_parent"><strong><?php echo $comment_by; ?></strong></a> 
+                        <a href="<?php echo $comment_by_username; ?>" target="_parent"><img src="<?php echo $user_obj->getPFP(); ?>" title="<?php echo $comment_by_full_name;?>" width="30"></a>
+                        <a href="<?php echo $comment_by_username; ?>" target="_parent"><strong><?php echo $comment_by_full_name; ?></strong></a> 
                     </div>
                     <div class="post-details-time">
                         <?php echo $time_interval_message;?>
