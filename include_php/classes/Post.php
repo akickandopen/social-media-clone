@@ -60,10 +60,11 @@
                         continue;
                     }
 
-                    if($tab == "tab_friends"){
-                        $user_logged_obj = new User($this->connect, $userLoggedIn);
-                        if($user_logged_obj->isFriend($user_by))
+                    $user_logged_obj = new User($this->connect, $userLoggedIn);
+                    if($tab == "tab_friends" && $user_logged_obj->isFriend($user_by)){
+                        // if($user_logged_obj->isFriend($user_by)){
                             continue;
+                        // }
                     }
 
                     //select user's first name, last name, and profile pic
@@ -89,6 +90,10 @@
                     </script>
 
                     <?php
+
+                    //query to check number of comments in the post
+                    $num_comments_check = mysqli_query($this->connect, "SELECT * FROM comments WHERE post_id='$id'");
+                    $num_comments = mysqli_num_rows($num_comments_check);
 
                     //timeframe
                     $date_time_now = date("Y-m-d H:i:s");
@@ -170,9 +175,14 @@
                                     <div id='post-body'>
                                         $body <br>
                                     </div>
-                                    <button onClick='javascript:toggleFunction$id()'>clickme</button>
-                                    <div class='post_comment' id='toggleComment$id' style='display:none;'>
-                                        <iframe src='comment_container.php?post_id=$id' id='comment_iframe' frameborder='0'></iframe>
+                                    <div class='post-options'>
+                                        <button onClick='javascript:toggleFunction$id()'>Comments</button>
+                                            $num_comments
+                                        <button>Like</button>
+                                            0
+                                    </div>
+                                    <div class='post-comment' id='toggleComment$id' style='display:none;'>
+                                        <iframe src='comment_container.php?post_id=$id' id='comment_iframe' frameborder='0' width='100%'></iframe>
                                     </div>
                                  </div>
                                 ";
