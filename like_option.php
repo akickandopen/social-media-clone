@@ -21,6 +21,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title></title>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link rel="stylesheet" href="resources/css/newsfeed_style.css">
 </head>
 <body>
@@ -80,18 +81,18 @@
         $num_rows = mysqli_num_rows($check_query);
 
         if($num_rows > 0){ // if there is 1 like, set button to Unlike
-            echo '<form action="like_option.php?post_id=' . $post_id . '" method="POST">
-                    <input type="submit" class="comment-like" name="unlike-btn" value="Unlike">
-                    <div class="like-value">
-                        ' . $total_likes . ' Likes
-                    </div>
+            echo '<form action="like_option.php?post_id=' . $post_id . '" class="form-like" method="POST">
+                    <button type="submit" class="like-icon" name="unlike-btn" value="Unlike">
+                        <i class="material-icons">favorite</i>
+                    </button>
+                    <p>' . $total_likes . '</p>
                 </form>';
         } else { // no likes, set button to Like
-            echo '<form action="like_option.php?post_id=' . $post_id . '" method="POST">
-                    <input type="submit" class="comment-like" name="like-btn" value="Like">
-                    <div class="like-value">
-                        ' . $total_likes . ' Likes
-                    </div>
+            echo '<form action="like_option.php?post_id=' . $post_id . '" class="form-like" method="POST">
+                    <button type="submit" class="like-icon" name="like-btn" value="Like">
+                        <i class="material-icons">favorite_border</i>
+                    </button>
+                    <p>' . $total_likes . '</p>
                 </form>';
         }
     ?>
