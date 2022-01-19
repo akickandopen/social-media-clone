@@ -1,3 +1,19 @@
+<?php 
+    require 'include_php/server.php'; 
+    include("include_php/classes/User.php");
+    include("include_php/classes/Post.php");
+
+    // redirect to register.php when user is not logged in
+    if (isset($_SESSION['id'])){
+        $userLoggedIn = $_SESSION['id'];
+        $user_details_query = mysqli_query($connect, "SELECT * FROM users WHERE id='$userLoggedIn'");
+        $user = mysqli_fetch_array($user_details_query);
+    } 
+    else {
+        header("Location: register.php");
+    }
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -5,24 +21,9 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title></title>
+    <link rel="stylesheet" href="resources/css/newsfeed_style.css">
 </head>
 <body>
-
-    <?php 
-        require 'include_php/server.php'; 
-        include("include_php/classes/User.php");
-        include("include_php/classes/Post.php");
-
-        // redirect to register.php when user is not logged in
-        if (isset($_SESSION['id'])){
-            $userLoggedIn = $_SESSION['id'];
-            $user_details_query = mysqli_query($connect, "SELECT * FROM users WHERE id='$userLoggedIn'");
-            $user = mysqli_fetch_array($user_details_query);
-        } 
-        else {
-            header("Location: register.php");
-        }
-    ?>
 
     <script>
         function toggle(){
@@ -34,6 +35,7 @@
         }
     </script>
     
+    <!--------------Insert Comments In Database-------------->
     <?php
         // get post id
         if(isset($_GET['post_id'])){
@@ -60,7 +62,7 @@
         }
     ?>
 
-    <!--Load Comments-->
+    <!--------------Load Comments From Database-------------->
     <?php
         $get_comments = mysqli_query($connect, "SELECT * FROM comments WHERE post_id='$post_id' ORDER BY id ASC");
         $count = mysqli_num_rows($get_comments);
@@ -141,19 +143,25 @@
                  }
 
                  ?>
-                 <div id="comment_section">
-                    <a href="#" target="_parent">
-                        <img src="<?php echo $user_obj->getPFP(); ?>" title="<?php echo $comment_by;?>" width="30">
-                    </a>
-                    <a href="#" target="_parent">
-                        <strong><?php echo $comment_by; ?></strong>
-                    </a> <br>
-                    <?php echo $time_interval_message . "<br>" . $comment_body; ?>
+                 <div id="comment-section">
+                     <div class="post-details-profile">
+                        <a href="#" target="_parent"><img src="<?php echo $user_obj->getPFP(); ?>" title="<?php echo $comment_by;?>" width="30"></a>
+                        <a href="#" target="_parent"><strong><?php echo $comment_by; ?></strong></a> 
+                    </div>
+                    <div class="post-details-time">
+                        <?php echo $time_interval_message;?>
+                    </div>
+                    <div class="comment-body">
+                        <?php echo $comment_body;?>
+                    </div>
                     <hr>
                     
                 </div>
                  <?php
             }
+        } 
+        else {
+            echo "No Comments to Show.";
         }
     ?>
 
