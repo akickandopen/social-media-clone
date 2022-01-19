@@ -8,7 +8,7 @@
             $this->user_obj = new User($connect, $user);
         }
 
-        public function submitPost($body) {
+        public function submitPost($body, $fileImgName) {
             $body = strip_tags($body); //remove html tags
             $body = mysqli_real_escape_string($this->connect, $body);
 
@@ -26,7 +26,7 @@
                 $user_by_id = $this->user_obj->getUserID();
 
                 //insert post in database
-                $query = mysqli_query($this->connect, "INSERT INTO posts (body, user_by_id, user_by, date_added, user_by_closed, post_deleted, likes) VALUES('$body', '$user_by_id', '$user_by', '$date_added', 'no', 'no', '0')");
+                $query = mysqli_query($this->connect, "INSERT INTO posts (body, image, user_by_id, user_by, date_added, user_by_closed, post_deleted, likes) VALUES('$body', '$fileImgName', '$user_by_id', '$user_by', '$date_added', 'no', 'no', '0')");
                 $returned_id = mysqli_insert_id($this->connect);
 
                 //update number of posts
@@ -53,6 +53,7 @@
                     $user_by_id = $row['user_by_id'];
                     $user_by = $row['user_by'];
                     $date_time = $row['date_added'];
+                    $fileImgPath = $row['image'];
 
                     //Check if user who added the post is closed
                     $user_by_obj = new User($this->connect, $user_by_id);
@@ -162,6 +163,14 @@
                         }
                     }
 
+                    if($fileImgPath != ""){
+                        $file_img = "<div class='post-body-image'>
+                                        <img src='$fileImgPath'>
+                                    </div>";
+                    } else {
+                        $file_img = "";
+                    }
+
                     $post_str .= "<div class='status-post card'>
                                     <div class='post-details'>
                                         <div class='post-details-profile'>
@@ -174,6 +183,7 @@
                                     </div>
                                     <div id='post-body'>
                                         $body <br>
+                                        $file_img
                                     </div>
                                     <div class='post-options'>
                                         <button onClick='javascript:toggleFunction$id()'>Comments</button>
