@@ -62,6 +62,15 @@
                         continue;
                     }
 
+                    // if the user logged in is the one who posted, include settings button
+                    if($userLoggedIn == $user_by_id){
+                        $settings_btn = "<button class='settings-btn dropdown-toggle align-self-end' id='settingsBtn' type='button' data-bs-toggle='dropdown' aria-expanded='false'>
+                                            <i class='material-icons'>settings</i>
+                                        </button>";
+                    } else {
+                        $settings_btn = "";
+                    }
+
                     //select user's first name, last name, and profile pic
                     $user_details_query = mysqli_query($this->connect, "SELECT first_name, last_name, profile_pic FROM users WHERE username='$user_by'");
                     $user_row = mysqli_fetch_array($user_details_query);
@@ -85,114 +94,122 @@
                     </script>
 
                     <?php
+                        //query to check number of comments in the post
+                        $num_comments_check = mysqli_query($this->connect, "SELECT * FROM comments WHERE post_id='$id'");
+                        $num_comments = mysqli_num_rows($num_comments_check);
 
-                    //query to check number of comments in the post
-                    $num_comments_check = mysqli_query($this->connect, "SELECT * FROM comments WHERE post_id='$id'");
-                    $num_comments = mysqli_num_rows($num_comments_check);
+                        //timeframe
+                        $date_time_now = date("Y-m-d H:i:s");
+                        $start_date = new DateTime($date_time); // date post was added
+                        $end_date = new DateTime($date_time_now); // current date and time now
+                        $interval = $start_date->diff($end_date); // difference between start and end date
 
-                    //timeframe
-                    $date_time_now = date("Y-m-d H:i:s");
-                    $start_date = new DateTime($date_time); // date post was added
-                    $end_date = new DateTime($date_time_now); // current date and time now
-                    $interval = $start_date->diff($end_date); // difference between start and end date
+                        $month_interval = $interval->m;
+                        $day_interval = $interval->d;
+                        $hour_interval = $interval->h;
+                        $min_interval = $interval->i;
+                        $sec_interval = $interval->s;
 
-                    $month_interval = $interval->m;
-                    $day_interval = $interval->d;
-                    $hour_interval = $interval->h;
-                    $min_interval = $interval->i;
-                    $sec_interval = $interval->s;
+                        if($month_interval >= 1){ // if interval is more than or equal to 1 month
 
-                    if($month_interval >= 1){ // if interval is more than or equal to 1 month
+                            if($day_interval == 0){ // if interval is exactly one month
+                                $days = " ago"; 
+                            } 
+                            else if($day_interval == 1) { 
+                                $days = $interval->d . " day ago"; // add "1 day ago"
+                            }
+                            else { 
+                                $days = $day_interval . " days ago"; // add "1+ days ago"
+                            }
 
-                        if($day_interval == 0){ // if interval is exactly one month
-                            $days = " ago"; 
-                        } 
-                        else if($day_interval == 1) { 
-                            $days = $interval->d . " day ago"; // add "1 day ago"
+                            if($month_interval == 1){ // if interval is one month ago
+                                $time_interval_message = $month_interval . " month" . $days;
+                            } else { // more than one month
+                                $time_interval_message = $month_interval . " months" . " and" . $days;
+                            }
                         }
-                        else { 
-                            $days = $day_interval . " days ago"; // add "1+ days ago"
+                        else if($day_interval >= 1){ // if interval is more than or equal to 1 day
+
+                            if($day_interval == 1) { 
+                                $time_interval_message = "Yesterday"; 
+                            }
+                            else { 
+                                $time_interval_message = $day_interval . " days ago";
+                            }
+                        }
+                        else if($hour_interval >= 1){ // if interval is more than or equal to 1 hour
+                            
+                            if($hour_interval == 1) { 
+                                $time_interval_message = $hour_interval . " hour ago"; 
+                            }
+                            else { 
+                                $time_interval_message = $hour_interval . " hours ago";
+                            }
+                        }
+                        else if($min_interval >= 1){ // if interval is more than or equal to 1 minute
+                            
+                            if($min_interval == 1) { 
+                                $time_interval_message = $min_interval . " minute ago"; 
+                            }
+                            else { 
+                                $time_interval_message = $min_interval . " minutes ago"; 
+                            }
+                        }
+                        else{ 
+
+                            if($sec_interval < 15) { // if interval is less than 15 seconds
+                                $time_interval_message = "Just now";
+                            }
+                            else { 
+                                $time_interval_message = $sec_interval . " seconds ago";
+                            }
                         }
 
-                        if($month_interval == 1){ // if interval is one month ago
-                            $time_interval_message = $month_interval . " month" . $days;
-                        } else { // more than one month
-                            $time_interval_message = $month_interval . " months" . " and" . $days;
+                        if($fileImgPath != ""){
+                            $file_img = "<div class='post-body-image'>
+                                            <img src='$fileImgPath'>
+                                        </div>";
+                        } else {
+                            $file_img = "";
                         }
-                    }
-                    else if($day_interval >= 1){ // if interval is more than or equal to 1 day
 
-                        if($day_interval == 1) { 
-                            $time_interval_message = "Yesterday"; 
-                        }
-                        else { 
-                            $time_interval_message = $day_interval . " days ago";
-                        }
-                    }
-                    else if($hour_interval >= 1){ // if interval is more than or equal to 1 hour
-                        
-                        if($hour_interval == 1) { 
-                            $time_interval_message = $hour_interval . " hour ago"; 
-                        }
-                        else { 
-                            $time_interval_message = $hour_interval . " hours ago";
-                        }
-                    }
-                    else if($min_interval >= 1){ // if interval is more than or equal to 1 minute
-                        
-                        if($min_interval == 1) { 
-                            $time_interval_message = $min_interval . " minute ago"; 
-                        }
-                        else { 
-                            $time_interval_message = $min_interval . " minutes ago"; 
-                        }
-                    }
-                    else{ 
-
-                        if($sec_interval < 15) { // if interval is less than 15 seconds
-                            $time_interval_message = "Just now";
-                        }
-                        else { 
-                            $time_interval_message = $sec_interval . " seconds ago";
-                        }
-                    }
-
-                    if($fileImgPath != ""){
-                        $file_img = "<div class='post-body-image'>
-                                        <img src='$fileImgPath'>
-                                    </div>";
-                    } else {
-                        $file_img = "";
-                    }
-
-                    $post_str .= "<div class='status-post card'>
-                                    <div class='post-details'>
-                                        <div class='post-details-profile'>
-                                            <img src='$profile_pic' width='36' alt='Profile Picture'>
-                                            <a href='$user_by'> $first_name $last_name </a>
+                        $post_str .= "<div class='status-post card'>
+                                        <div class='post-details'>
+                                            <div class='post-details-profile'>
+                                                <img src='$profile_pic' width='36' alt='Profile Picture'>
+                                                <a href='$user_by'> $first_name $last_name </a>
+                                            </div>
+                                            <div class='post-details-time'>
+                                                $time_interval_message
+                                            </div>
                                         </div>
-                                        <div class='post-details-time'>
-                                            $time_interval_message
+                                        <div id='post-body'>
+                                            $body <br>
+                                            $file_img
+                                            <div class='post-options d-flex justify-content-between'>
+                                                <div class='d-flex align-items-end'>
+                                                    <button onClick='javascript:toggleFunction$id()' class='comment-icon'>
+                                                        <i class='material-icons'>question_answer</i>
+                                                    </button>
+                                                        <p>$num_comments</p>
+                                                    <iframe src='like_option.php?post_id=$id' scrolling='no'></iframe>
+                                                </div>
+                                                <div class='dropdown d-flex align-items-end'>
+                                                    $settings_btn
+                                                    <ul class='dropdown-menu' aria-labelledby='settingsBtn'>
+                                                        <li><a class='dropdown-item' href='#'>Edit</a></li>
+                                                        <li><a class='dropdown-item' href='delete_option.php?post_id=$id'>Delete</a></li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class='post-comment' id='toggleComment$id' style='display:none;'>
+                                            <iframe src='comment_container.php?post_id=$id' id='comment_iframe' frameborder='0' width='100%'></iframe>
                                         </div>
                                     </div>
-                                    <div id='post-body'>
-                                        $body <br>
-                                        $file_img
-                                        <div class='post-options'>
-                                            <button onClick='javascript:toggleFunction$id()' class='comment-icon'>
-                                                <i class='material-icons'>question_answer</i>
-                                            </button>
-                                                <p>$num_comments</p>
-                                            <iframe src='like_option.php?post_id=$id' scrolling='no'></iframe>
-                                        </div>
-                                    </div>
-                                    <div class='post-comment' id='toggleComment$id' style='display:none;'>
-                                        <iframe src='comment_container.php?post_id=$id' id='comment_iframe' frameborder='0' width='100%'></iframe>
-                                    </div>
-                                 </div>
-                                ";
+                                    ";
+                    }
                 }
-            }
             echo $post_str;
         }
 
