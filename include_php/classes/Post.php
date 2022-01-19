@@ -38,7 +38,7 @@
             $post_str = "";
             $userLoggedIn = $this->user_obj->getUserID();
 
-            //select posts that haven't been deleted in descending order
+            //select all posts in descending order
             $posts_data_query = mysqli_query($this->connect, "SELECT * FROM posts ORDER BY id DESC");
 
             if(mysqli_num_rows($posts_data_query) > 0) {
@@ -184,7 +184,7 @@
                         $post_str .= "<div class='status-post card'>
                                         <div class='post-details'>
                                             <div class='post-details-profile'>
-                                                <img src='$profile_pic' width='36' alt='Profile Picture'>
+                                                <img src='$profile_pic' alt='Profile Picture'>
                                                 <a href='$user_by'> $first_name $last_name </a>
                                             </div>
                                             <div class='post-details-time'>
