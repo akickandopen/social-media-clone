@@ -22,7 +22,7 @@
                 $user_by_id = $this->user_obj->getUserID();
 
                 //insert post in database
-                $query = mysqli_query($this->connect, "INSERT INTO posts (body, image, user_by_id, user_by, date_added, user_by_closed, post_deleted, likes) VALUES('$body', '$fileImgName', '$user_by_id', '$user_by', '$date_added', 'no', 'no', '0')");
+                $query = mysqli_query($this->connect, "INSERT INTO posts (body, image, user_by_id, user_by, date_added, user_by_closed, post_edited, likes) VALUES('$body', '$fileImgName', '$user_by_id', '$user_by', '$date_added', 'no', 'no', '0')");
                 $returned_id = mysqli_insert_id($this->connect);
 
                 //update number of posts
@@ -39,7 +39,7 @@
             $userLoggedIn = $this->user_obj->getUserID();
 
             //select posts that haven't been deleted in descending order
-            $posts_data_query = mysqli_query($this->connect, "SELECT * FROM posts WHERE post_deleted='no' ORDER BY id DESC");
+            $posts_data_query = mysqli_query($this->connect, "SELECT * FROM posts ORDER BY id DESC");
 
             if(mysqli_num_rows($posts_data_query) > 0) {
 
@@ -50,6 +50,7 @@
                     $user_by = $row['user_by'];
                     $date_time = $row['date_added'];
                     $fileImgPath = $row['image'];
+                    $is_edited = $row['post_edited'];
 
                     //Check if user who added the post is closed
                     $user_by_obj = new User($this->connect, $user_by_id);
@@ -57,6 +58,7 @@
                         continue;
                     }
 
+                    // if in 'my posts' tab, only show posts from user
                     $user_logged_obj = new User($this->connect, $userLoggedIn);
                     if($tab == "tab_user" && $user_logged_obj->isUser($user_by)){
                         continue;
@@ -173,6 +175,12 @@
                             $file_img = "";
                         }
 
+                        if($is_edited == "yes"){
+                            $edit_message = "(Edited) ";
+                        } else {
+                            $edit_message = "";
+                        }
+
                         $post_str .= "<div class='status-post card'>
                                         <div class='post-details'>
                                             <div class='post-details-profile'>
@@ -180,6 +188,7 @@
                                                 <a href='$user_by'> $first_name $last_name </a>
                                             </div>
                                             <div class='post-details-time'>
+                                                $edit_message
                                                 $time_interval_message
                                             </div>
                                         </div>
@@ -197,7 +206,7 @@
                                                 <div class='dropdown d-flex align-items-end'>
                                                     $settings_btn
                                                     <ul class='dropdown-menu' aria-labelledby='settingsBtn'>
-                                                        <li><a class='dropdown-item' href='#'>Edit</a></li>
+                                                        <li><a class='dropdown-item' href='edit_option.php?post_id=$id'>Edit</a></li>
                                                         <li><a class='dropdown-item' href='delete_option.php?post_id=$id'>Delete</a></li>
                                                     </ul>
                                                 </div>
@@ -209,7 +218,9 @@
                                     </div>
                                     ";
                     }
-                }
+            } else {
+                $post_str .="No Posts.";
+            }
             echo $post_str;
         }
 
