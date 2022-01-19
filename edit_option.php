@@ -38,11 +38,11 @@
         <h3>Edit Post</h3>
         <form action="edit_option.php?post_id=<?php echo $post_id;?>" method="POST">
             <div class="body d-flex align-items-start">
-                <textarea name="post-text-area" id="post-text-area" placeholder="<?php echo $previous_body;?>"></textarea>
+                <textarea name="post-text-area" id="postTextArea" placeholder="<?php echo $previous_body;?>"></textarea>
             </div>
             <div class="options d-flex justify-content-end align-items-center">
                 <a href="index.php" class="btn btn-secondary">Go Back</a>
-                <input type="submit" name="save-post" id="post-submit-btn" value="Save Changes">
+                <input type="submit" name="save-post" id="postSubmitBtn" value="Save Changes">
             </div>
         </form>
     </div>
