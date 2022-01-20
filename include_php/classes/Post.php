@@ -13,6 +13,9 @@
             $body = mysqli_real_escape_string($this->connect, $body);
 
             $check_empty = preg_replace('/\s+/', '', $body); //deletes all spaces
+
+            $topics = $this->getTags($body);
+
             if($check_empty != ""){
                 //current date and time
                 $date_added = date("Y-m-d H:i:s");
@@ -22,7 +25,7 @@
                 $user_by_id = $this->user_obj->getUserID();
 
                 //insert post in database
-                $query = mysqli_query($this->connect, "INSERT INTO posts (body, image, user_by_id, user_by, date_added, user_by_closed, post_edited, likes) VALUES('$body', '$fileImgName', '$user_by_id', '$user_by', '$date_added', 'no', 'no', '0')");
+                $query = mysqli_query($this->connect, "INSERT INTO posts (body, user_by_id, user_by, date_added, post_edited, likes, image, topics) VALUES('$body', '$user_by_id', '$user_by', '$date_added', 'no', '0', '$fileImgName', '$topics')");
                 $returned_id = mysqli_insert_id($this->connect);
 
                 //update number of posts
@@ -51,17 +54,18 @@
                     $date_time = $row['date_added'];
                     $fileImgPath = $row['image'];
                     $is_edited = $row['post_edited'];
+                    $tags = $row['topics'];
 
-                    //Check if user who added the post is closed
-                    $user_by_obj = new User($this->connect, $user_by_id);
-                    if($user_by_obj->isClosed()){
-                        continue;
-                    }
+                    $full_body = $this->addLink($body);
 
                     // if in 'my posts' tab, only show posts from user
                     $user_logged_obj = new User($this->connect, $userLoggedIn);
                     if($tab == "tab_user" && $user_logged_obj->isUser($user_by)){
                         continue;
+                    } else if ($tab == "tab_trends") {
+                        if(strpos($full_body, "#") == false){ // if there is a # in the body
+                            continue;
+                        } 
                     }
 
                     // if the user logged in is the one who posted, include settings button
@@ -83,7 +87,7 @@
 
                     ?>
 
-                    <script>
+                    <script> // for each comment button
                         function toggleFunction<?php echo $id; ?>() {
 
                             var x = document.getElementById("toggleComment<?php echo $id; ?>");
@@ -181,11 +185,12 @@
                             $edit_message = "";
                         }
 
+                        // set post_str to this
                         $post_str .= "<div class='status-post card'>
                                         <div class='post-details'>
                                             <div class='post-details-profile'>
                                                 <img src='$profile_pic' alt='Profile Picture'>
-                                                <a href='$user_by'> $first_name $last_name </a>
+                                                <a href='#'> $first_name $last_name </a>
                                             </div>
                                             <div class='post-details-time'>
                                                 $edit_message
@@ -193,7 +198,7 @@
                                             </div>
                                         </div>
                                         <div id='post-body'>
-                                            $body <br>
+                                            $full_body <br>
                                             $file_img
                                             <div class='post-options d-flex justify-content-between'>
                                                 <div class='d-flex align-items-end'>
@@ -222,6 +227,39 @@
                 $post_str .="No Posts.";
             }
             echo $post_str;
+        }
+
+        public function getTags($text) {
+
+            $text = explode(" ", $text); // split text into array
+
+            $topics = "";
+
+            foreach($text as $word) {
+                if(substr($word, 0, 1) == "#"){ // if the beginning of the word is equal to #
+                    $topics .= $word.",";
+                }
+            }
+
+            return $topics;
+
+        }
+
+        public function addLink($text) {
+            $text = explode (" ", $text); // split text into array
+
+            for($i = 0; $i <count($text); $i++){
+                if(substr($text[$i], 0, 1) == "#") {
+                    $text[$i] = "<a href='index.php?topic=".$text[$i]."' class='link'>".$text[$i]."</a>";
+                }
+
+                if(substr($text[$i], 0, 1) == "@") {
+                    $text[$i] = "<a href='#' class='link'>".$text[$i]."</a>";
+                }
+            }
+
+            $newstring = implode(" ", $text); // join array into string
+            return $newstring;
         }
 
     }
