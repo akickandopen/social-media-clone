@@ -24,7 +24,6 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous">
     </script>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
 
     <!--CSS-->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
@@ -37,36 +36,7 @@
 
 <body>
 
-    <nav>
-        <div class="nav-left">
-            <h1>Bond</h1>
-            <div class="nav-search">
-                <i class="material-icons">search</i>
-                <input type="text" placeholder="Search...">
-            </div>
-        </div>
-
-        <!-- <div class="nav-mid">
-            <div class="nav-search">
-                <i class="material-icons">search</i>
-                <input type="text" placeholder="Search...">
-            </div>
-        </div> -->
-
-        <div class="nav-right">
-            <div class="buttons">
-                <a href="#"><i class="material-icons">notifications</i></a>
-                <a href="#"><i class="material-icons">help_outline</i></a>
-                <a href="include_php/logout.php">
-                    <i class="material-icons">logout</i>
-                </a>
-            </div>
-            <div class="user">
-                <a href="#" class="user-avatar">
-                    <img src="<?php echo $user['profile_pic']; ?>" alt="User profile picture">
-                    <?php echo $user['first_name']; ?>
-                    <span class="material-icons">expand_more</span>
-                </a>
-            </div>
-        </div>
+    <nav class="navbar justify-content-between">
+        <h1 class="mx-4 mb-0">Bond</h1>
+        <a href="include_php/logout.php" class="btn btn-secondary mx-4">Log Out</a>
     </nav>
