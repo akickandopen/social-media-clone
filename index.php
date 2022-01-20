@@ -49,6 +49,57 @@
                 </div>";
         }
     }
+
+    if(isset($_POST['update-profile'])){
+        $allowUpload = 1;
+    
+        $new_first_name = $_POST['new-first-name'];
+        $new_last_name = $_POST['new-last-name'];
+        $profileImgName = $_FILES['profile-img-upload']['name'];
+    
+        $errorMessage = "";
+    
+        if($profileImgName != "") { // if profileImgName is not empty
+            $targetDir = "resources/images/profile_pics/"; // target directory
+            $profileImgName = $targetDir . uniqid() . basename($profileImgName);
+            $profileImgType = pathinfo($profileImgName, PATHINFO_EXTENSION);
+    
+            if($_FILES['profile-img-upload']['size'] > 10000000) {
+                $errorMessage = "The file is too large!";
+                $allowUpload = 0;
+            }
+    
+            if(strtolower($profileImgType) != "jpeg" && strtolower($profileImgType) != "png" && strtolower($profileImgType) != "jpg") {
+                $errorMessage = "Only jpeg, jpg and png files are allowed";
+                $allowUpload = 0;
+            }
+    
+            if($allowUpload) {
+                if(move_uploaded_file($_FILES['profile-img-upload']['tmp_name'], $profileImgName)) {
+                    //image is uploaded
+                }
+                else {
+                    $allowUpload = 0; //image did not upload
+                }
+            }
+        } else {
+            // get post details
+            $profile_pic_query = mysqli_query($connect, "SELECT profile_pic FROM users WHERE id='$userLoggedIn'");
+            $row = mysqli_fetch_array($profile_pic_query);
+
+            $profileImgName = $row['profile_pic'];
+        }
+    
+        if($allowUpload) {
+            // update first and last name and profile pic of the user logged in
+            $edit_user_query = mysqli_query($connect, "UPDATE users SET first_name='$new_first_name', last_name='$new_last_name', profile_pic='$profileImgName' WHERE id='$userLoggedIn'");
+        }
+        else {
+            echo "<div style='text-align:center;' class='alert alert-danger'>
+                    $errorMessage
+                </div>";
+        }
+    }
 ?>
 
 <div class="container-fluid mt-4">
@@ -103,12 +154,12 @@
                 <form action="index.php" class="post-form card" method="POST" enctype="multipart/form-data">
                     <div class="body d-flex align-items-start">
                         <img src="<?php echo $user_obj->getPFP(); ?>">
-                        <textarea name="post-text-area" id="post-text-area" placeholder="Write a post..."></textarea>
+                        <textarea name="post-text-area" id="postTextArea" placeholder="Write a post..."></textarea>
                     </div>
                     <div class="options d-flex justify-content-end align-items-center">
-                        <label for="file-img-upload"><i class="material-icons">image</i></label>
-                        <input type="file" name="file-img-upload" id="file-img-upload">
-                        <input type="submit" name="post" id="post-submit-btn" value="Post">
+                        <label for="fileImgUpload"><i class="material-icons">image</i></label>
+                        <input type="file" name="file-img-upload" id="fileImgUpload">
+                        <input type="submit" name="post" id="postSubmitBtn" value="Post">
                     </div>
                 </form>
 
@@ -171,11 +222,22 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                
+                <form action="index.php" method="POST" enctype="multipart/form-data">
+                    <label for="profileImgUpload">Profile Picture</label><br>
+                    <img src="<?php echo $user_obj->getPFP(); ?>" width="100">
+                    <input type="file" name="profile-img-upload" id="profileImgUpload"><br>
+
+                    <label for="firstName">First Name</label><br>
+                    <input type="text" name="new-first-name" id="firstName" value="<?php echo $user_obj->getFirstName(); ?>"><br>
+
+                    <label for="lastName">Last Name</label><br>
+                    <input type="text" name="new-last-name" id="lastName" value="<?php echo $user_obj->getLastName(); ?>"><br>
+                    
+                    <hr>
+                    <input type="submit" name="update-profile" class="btn btn-primary" value="Save Changes">
+                </form>
             </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-primary">Save changes</button>
-            </div>
+
         </div>
     </div>
 
