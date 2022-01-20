@@ -8,78 +8,234 @@
 
 body {
   background-color: #fdfcfc;
-  background-image: url("background/blush-blocks-rotated.png");
-  background-repeat: repeat-y;
-  background-attachment: fixed;
-  background-position: right;
   font-family: "Roboto", sans-serif;
 }
 
-h1 {
-  margin-top: 2rem;
-  margin-left: 4rem;
-  font-size: 54px;
-  font-family: "Questrial", sans-serif;
+.container {
+  position: relative;
+  width: 100%;
+  background-color: #fff;
+  min-height: 100vh;
+  overflow: hidden;
 }
 
-section{
+.container:before {
+  content: '';
+  position: absolute;
+  height: 2000px;
+  width: 2000px;
+  top: -10%;
+  right: 48%;
+  transform: translateY(-50%);
+  background-image: linear-gradient(-45deg, #5EA3A3 0%, #ADD2C9 100%);
+  transition: 1.8s ease-in-out;
+  border-radius: 50%;
+  z-index: 6;
+}
+
+.forms-container {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+}
+
+.login-signup {
+  position: absolute;
+  top: 50%;
+  left: 75%;
+  transform: translate(-50%, -50%);
+  width: 50%;
+  transition: 1s 0.7s ease-in-out;
+  display: grid;
+  grid-template-columns: 1fr;
+  z-index: 5;
+}
+
+form {
   display: flex;
-  justify-content: space-between;
-  align-items: flex-start;
-  margin-left: 4rem;
-  margin-right: 4rem;
-  gap: 12rem;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  padding: 0rem 5rem;
+  transition: all 0.2s 0.7s;
+  overflow: hidden;
+  grid-column: 1 / 2;
+  grid-row: 1 / 2;
 }
 
-  .tabs {
-    width: 100%;
-    display: flex;
-    flex-wrap: wrap;
-  }
+form.sign-up-form {
+  opacity: 0;
+  z-index: 1;
+}
 
-    .tab-label {
-      display: flex;
-      flex: auto;
-      justify-content: center;
-      padding: 1rem;
-      cursor: pointer;
-    }
+form.log-in-form {
+  z-index: 2;
+}
 
-    .tab-radio {
-      display: none;
-    }
+.title {
+  font-size: 2.2rem;
+  color: #444;
+  margin-bottom: 10px;
+}
 
-    .tab-content {
-      order: 1;
-      width: 100%;
-      display: none;
-    }
+.input-field {
+  max-width: 380px;
+  width: 100%;
+  background-color: #f0f0f0;
+  margin: 10px 0;
+  height: 50px;
+  border-radius: 50px;
+  display: grid;
+  grid-template-columns: 15% 85%;
+  padding: 0 0.4rem;
+  position: relative;
+}
 
-    .tab-radio + .tab-label {
-      color: #666666;
-      border-bottom: 1px solid #d9d9d9;
-    }
+.input-field i {
+  text-align: center;
+  line-height: 55px;
+  color: #acacac;
+  transition: 0.5s;
+  font-size: 1.1rem;
+}
 
-    .tab-radio:checked + .tab-label {
-      font-weight: bold;
-      color: #333333;
-      border-bottom: 2px solid #009578;
-    }
+.input-field input {
+  background: none;
+  outline: none;
+  border: none;
+  line-height: 1;
+  font-weight: 600;
+  font-size: 1.1rem;
+  color: #333;
+}
 
-    .tab-radio:checked + .tab-label + .tab-content {
-      display: initial;
-    }
+.input-field input::placeholder {
+  color: #aaa;
+  font-weight: 500;
+}
 
-      form {
-        display: flex;
-        flex-wrap: wrap;
-      }
+.btn {
+  width: 175px;
+  background-color: #5EA3A3;
+  border: none;
+  outline: none;
+  height: 49px;
+  border-radius: 49px;
+  color: #fff;
+  text-transform: uppercase;
+  font-weight: 600;
+  margin: 10px 0;
+  cursor: pointer;
+  transition: 0.5s;
+}
 
-      input {
-        width: 100%;
-        margin-top: 1em;
-        background-color: #ffffff;
-        border: 1px solid #d4d4d4;
-        border-radius: 5px;
-        padding: 2%;
-      }
+.btn:hover {
+  background-color: #488B8F;
+}
+
+.panels-container {
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  top: 0;
+  left: 0;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+}
+
+.image {
+  width: 100%;
+  transition: transform 0.9s 0.6s ease-in-out;
+}
+
+.panel {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  justify-content: space-around;
+  text-align: center;
+  z-index: 7;
+}
+
+.left-panel {
+  pointer-events: all;
+  padding: 3rem 17% 2rem 12%;
+}
+
+.right-panel {
+  pointer-events: none;
+  padding: 3rem 12% 2rem 17%;
+}
+
+.panel .content {
+  color: #fff;
+  transition: transform 0.9s 0.6s ease-in-out;
+}
+
+.panel h3 {
+  font-weight: 600;
+  line-height: 1;
+  font-size: 1.5rem;
+}
+
+.panel p {
+  font-size: 0.95rem;
+  padding: 0.7rem 0;
+}
+
+.btn.transparent {
+  margin: 0;
+  background: none;
+  border: 2px solid #fff;
+  width: 130px;
+  height: 41px;
+  font-weight: 600;
+  font-size: 0.8rem;
+}
+
+.right-panel .image,
+.right-panel .content {
+  transform: translateX(800px);
+}
+
+
+/********************************************/
+
+.container.sign-up-mode:before {
+  transform: translate(100%, -50%);
+  right: 52%;
+}
+
+.container.sign-up-mode .left-panel .image,
+.container.sign-up-mode .left-panel .content {
+  transform: translateX(-800px);
+}
+
+.container.sign-up-mode .login-signup {
+  left: 25%;
+}
+
+.container.sign-up-mode form.sign-up-form {
+  opacity: 1;
+  z-index: 2;
+}
+
+.container.sign-up-mode form.log-in-form {
+  opacity: 0;
+  z-index: 1;
+}
+
+.container.sign-up-mode .right-panel .image,
+.container.sign-up-mode .right-panel .content {
+  transform: translateX(0%);
+}
+
+.container.sign-up-mode .left-panel {
+  pointer-events: none;
+}
+
+.container.sign-up-mode .right-panel {
+  pointer-events: all;
+}
