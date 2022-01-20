@@ -21,9 +21,17 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title></title>
+    <!--JAVASCRIPT-->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous">
+    </script>
+
+    <!--CSS-->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
     <link rel="stylesheet" href="resources/css/newsfeed_style.css">
 </head>
-<body>
+<body class="background">
 
     <script>
         function toggle(){
@@ -60,7 +68,8 @@
             $date_time_now = date("Y-m-d H:i:s");
             $insert_comment = mysqli_query($connect, "INSERT INTO comments VALUES (NULL, '$post_id', '$comment_to_id', '$comment_to', '$comment_by_id', '$comment_by_username', '$comment_by_full_name', '$comment_body', '$date_time_now', 'no')");
 
-            echo "<p>Comment Posted! </p>";
+            echo '<div class="alert alert-success" role="alert">Comment posted!</div>';
+
         }
     ?>
 
@@ -77,6 +86,12 @@
                 $comment_body = $comment['comment_body'];
                 $date_added = $comment['date_added'];
                 $comment_deleted = $comment['comment_deleted'];
+
+                // get user's profile picture
+                $user_pic_query = mysqli_query($connect, "SELECT profile_pic FROM users WHERE username='$comment_by_username'");
+                $row = mysqli_fetch_array($user_pic_query);
+
+                $comment_by_pfp = $row['profile_pic']; // id of user who posted
 
                  //timeframe
                  $date_time_now = date("Y-m-d H:i:s");
@@ -147,28 +162,30 @@
 
                  ?>
                  <div id="comment-section">
-                     <div class="post-details-profile">
-                        <a href="<?php echo $comment_by_username; ?>" target="_parent"><img src="<?php echo $user_obj->getPFP(); ?>" title="<?php echo $comment_by_full_name;?>" width="30"></a>
-                        <a href="<?php echo $comment_by_username; ?>" target="_parent"><strong><?php echo $comment_by_full_name; ?></strong></a> 
-                    </div>
-                    <div class="post-details-time">
-                        <?php echo $time_interval_message;?>
+                    <div class="post-details">
+                        <div class="post-details-profile">
+                            <a href="<?php echo $comment_by_username; ?>" target="_parent"><img src="<?php echo $comment_by_pfp; ?>" title="<?php echo $comment_by_full_name;?>" width="30"></a>
+                            <a href="<?php echo $comment_by_username; ?>" target="_parent"><strong><?php echo $comment_by_full_name; ?></strong></a> 
+                        </div>
+                        <div class="post-details-time">
+                            <?php echo $time_interval_message;?>
+                        </div>
                     </div>
                     <div class="comment-body">
                         <?php echo $comment_body;?>
-                    </div>
-                    <hr>
-                    
+                    </div> <br>
                 </div>
                  <?php
             }
         } 
         else {
-            echo "No Comments to Show.";
+            echo "<br><p class='d-flex justify-content-center'>No Comments to Show.</p>";
         }
     ?>
 
-    <form action="comment_container.php?post_id=<?php echo $post_id; ?>" id="comment_form" name="postComment<?php echo $post_id;?>" method="POST">
+    <div class="space"></div>
+
+    <form action="comment_container.php?post_id=<?php echo $post_id; ?>" class="comment-form" id="commentForm" name="postComment<?php echo $post_id;?>" method="POST">
         <textarea name="comment_body"></textarea>
         <input type="submit" name="postComment<?php echo $post_id; ?>" value="Post">
     </form>
