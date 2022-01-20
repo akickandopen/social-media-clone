@@ -78,6 +78,7 @@
 
 .post-form img {
   width: 36px;
+  height: 36px;
   -webkit-clip-path: circle();
           clip-path: circle();
 }
@@ -99,19 +100,13 @@
   margin-right: 12px;
 }
 
-.post-form .options label:hover {
-  padding: 12px;
-  -webkit-clip-path: circle();
-          clip-path: circle();
-}
-
-#file-img-upload {
+#fileImgUpload {
   opacity: 0;
   position: absolute;
   z-index: -1;
 }
 
-#post-submit-btn {
+#postSubmitBtn {
   background-color: #488B8F;
   border: none;
   border-radius: 8px;
@@ -161,6 +156,8 @@
 }
 
 .post-details-profile img {
+  width: 36px;
+  height: 36px;
   -webkit-clip-path: circle();
           clip-path: circle();
 }
