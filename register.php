@@ -39,7 +39,7 @@
                 </div>
 
                 <input type="submit" name="login_btn" value="Login" class="btn solid">
-                <?php if(in_array("Email or password is incorrect.", $error_list)) echo "Email or password is incorrect.<br>"; ?>
+                <?php if(in_array("Email or password is incorrect.", $error_list)) echo '<script>alert("Email or password is incorrect.")</script>'; ?>
             </form>
             <form action="register.php" method="POST" class="sign-up-form">
                 <h2 class="title">Sign up</h2>
@@ -68,8 +68,8 @@
                         }?>" required>
 
                     <?php 
-                        if(in_array("Email already in use.", $error_list)) echo "Email already in use.<br>";
-                        else if (in_array("Invalid email format.", $error_list)) echo "Invalid email format.<br>";
+                        if(in_array("Email already in use.", $error_list)) echo '<script>alert("Email already in use.")</script>';
+                        else if (in_array("Invalid email format.", $error_list)) echo '<script>alert("Invalid email format.")</script>';
                     ?>
                 </div>
 
@@ -81,7 +81,7 @@
                 <div class="input-field">
                     <i class="material-icons">lock</i>
                     <input type="password" name="sign_up_pass2" placeholder="Confirm Password" required>
-                    <?php if(in_array("Passwords don't match.", $error_list)) echo "Passwords don't match.<br>"; ?>
+                    <?php if(in_array("Passwords don't match.", $error_list)) echo '<script>alert("Passwords do not match.")</script>'; ?>
                 </div>
 
                     <input type="submit" name="sign_up_btn" value="Create an account" class="btn">
@@ -94,8 +94,8 @@
           <div class="content">
             <h3>New here?</h3>
             <p>
-              Lorem ipsum, dolor sit amet consectetur adipisicing elit. Debitis,
-              ex ratione. Aliquid!
+              Share your ideas and thoughts. Share your life through posts. Join now 
+              and connect with others through Bond!
             </p>
             <button class="btn transparent" id="sign-up-btn">
               Sign up
@@ -106,10 +106,7 @@
         <div class="panel right-panel">
           <div class="content">
             <h3>Already have an account?</h3>
-            <p>
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Nostrum
-              laboriosam ad deleniti.
-            </p>
+            <p>Log in and have fun with Bond!</p>
             <button class="btn transparent" id="log-in-btn">
               Log in
             </button>
@@ -125,23 +122,12 @@
         var sign_up_btn = document.querySelector("#sign-up-btn");
         var container = document.querySelector(".container");
 
-        // var x = document.getElementById("toggleProfile");
-        //     if (x.style.display == "block") {
-        //         x.style.display = "none";
-        //     } else {
-        //         x.style.display = "block";
-        //     }
-
         sign_up_btn.addEventListener("click", () => {
             container.classList.add("sign-up-mode");
-
-
         });
 
         log_in_btn.addEventListener("click", () => {
             container.classList.remove("sign-up-mode");
-
-
         });
     </script>
 
