@@ -36,6 +36,13 @@
             return $row['num_posts'];
         }
 
+        public function getNumLikes(){
+            $user_id = $this->user['id'];
+            $query = mysqli_query($this->connect, "SELECT num_likes FROM users WHERE id='$user_id'");
+            $row = mysqli_fetch_array($query);
+            return $row['num_likes'];
+        }
+
         public function getFirstAndLastName() {
             $user_id = $this->user['id'];
             $query = mysqli_query($this->connect, "SELECT first_name, last_name FROM users WHERE id='$user_id'");
