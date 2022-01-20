@@ -26,6 +26,9 @@
         }
         else {
             array_push($error_list, "Email or password is incorrect.");
+
+            // clear session variable
+            $_SESSION['login_email'] = "";
         }
 
     }

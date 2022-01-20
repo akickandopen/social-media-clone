@@ -81,6 +81,12 @@
             $_SESSION['sign_up_fname'] = "";
             $_SESSION['sign_up_lname'] = "";
             $_SESSION['sign_up_email'] = "";
+        } 
+        else {
+            // clear session variables
+            $_SESSION['sign_up_fname'] = "";
+            $_SESSION['sign_up_lname'] = "";
+            $_SESSION['sign_up_email'] = "";
         }
     }
     
