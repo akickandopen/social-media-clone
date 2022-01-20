@@ -57,19 +57,8 @@
             return $row['profile_pic'];
         }
 
-        public function isClosed(){
-            $username = $this->user['username'];
-            $query = mysqli_query($this->connect, "SELECT user_closed FROM users WHERE username='$username'");
-            $row = mysqli_fetch_array($query);
-
-            if($row['user_closed'] == 'no')
-                return false;
-            else
-                return true;
-        }
-
         public function isUser($username_check){
-            if((strstr($this->user['username'], $username_check))){
+            if((strstr($this->user['username'], $username_check))){ // if the user who posted is the current user logged in
                 return false;
             } else {
                 return true;
