@@ -6,17 +6,18 @@
     $user_obj = new User($connect, $userLoggedIn);
     $post = new Post($connect, $userLoggedIn);
 
+    $allowUpload = 1;
+    $errorMessage = "";
+    
     if(isset($_POST['post'])){
 
-        $allowUpload = 1;
         $fileImgName = $_FILES['file-img-upload']['name'];
-        $errorMessage = "";
     
         if($fileImgName != "") { // if fileImgName is not empty
 
             $targetDir = "resources/images/posts/"; // target directory
-            $fileImgName = $targetDir . uniqid() . basename($fileImgName);
-            $fileImgType = pathinfo($fileImgName, PATHINFO_EXTENSION);
+            $fileImgName = $targetDir . uniqid() . basename($fileImgName); // image path name
+            $fileImgType = pathinfo($fileImgName, PATHINFO_EXTENSION); // file type
     
             if($_FILES['file-img-upload']['size'] > 10000000) {
                 $errorMessage = "The file is too large!";
@@ -51,13 +52,10 @@
     }
 
     if(isset($_POST['update-profile'])){
-        $allowUpload = 1;
     
         $new_first_name = $_POST['new-first-name'];
         $new_last_name = $_POST['new-last-name'];
         $profileImgName = $_FILES['profile-img-upload']['name'];
-    
-        $errorMessage = "";
     
         if($profileImgName != "") { // if profileImgName is not empty
             $targetDir = "resources/images/profile_pics/"; // target directory
@@ -93,6 +91,7 @@
         if($allowUpload) {
             // update first and last name and profile pic of the user logged in
             $edit_user_query = mysqli_query($connect, "UPDATE users SET first_name='$new_first_name', last_name='$new_last_name', profile_pic='$profileImgName' WHERE id='$userLoggedIn'");
+            header("Location: index.php");
         }
         else {
             echo "<div style='text-align:center;' class='alert alert-danger'>
@@ -105,21 +104,22 @@
 <div class="container-fluid mt-4">
     <!--fluid container, margin-top: 1.5rem-->
     <div class="row justify-content-evenly">
-        <div class="col-md-3">
-            <div class="row">
+        <div class="col-md-4 greeting-profile">
+            <div class="row mx-1 d-none d-md-block">
                 <div class="greeting card">
-                    <?php echo "<h3>Hi, " .$user_obj->getFirstName() ."</h3>"; ?>
+                    <img src="<?php echo $user_obj->getPFP(); ?>">
+                    <?php echo "<h4>Hi, " .$user_obj->getFirstName() ."!</h4>"; ?>
                 </div>
             </div>
-            <div class="row">
+            <div class="row mx-1">
                 <div class="card-a">
-                    <div class="profile-title">
+                    <div class="profile-title mb-1">
                         <h4>Profile</h4>
                         <button onClick="javascript:toggleProfile()"><i class="material-icons">arrow_drop_down_circle</i></button>
                     </div>
                     <div class="profile-info" id="toggleProfile">
                         <div class="row">
-                            <div class="col-md-4">
+                            <div class="col-md-4 col-sm-2">
                                 <p>First Name</p>
                             </div>
                             <div class="col">
@@ -127,7 +127,7 @@
                             </div>
                         </div>
                         <div class="row">
-                            <div class="col-md-4">
+                            <div class="col-md-4 col-sm-2">
                                 <p>Last Name</p>
                             </div>
                             <div class="col">
@@ -135,11 +135,25 @@
                             </div>
                         </div>
                         <div class="row">
-                            <div class="col-md-4">
+                            <div class="col-md-4 col-sm-2">
                                 <p>Email</p>
                             </div>
                             <div class="col">
                                 <p><?php echo $user_obj->getEmail(); ?></p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col">
+                                <p>Posts:</p>
+                            </div>
+                            <div class="col">
+                                <p><?php echo $user_obj->getNumPosts(); ?></p>
+                            </div>
+                            <div class="col">
+                                <p>Likes:</p>
+                            </div>
+                            <div class="col">
+                                <p><?php echo $user_obj->getNumLikes(); ?></p>
                             </div>
                         </div>
                         <div class="row">
@@ -171,7 +185,7 @@
                         <a class="nav-link" data-bs-toggle="tab" href="#my-posts">My Posts</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" data-bs-toggle="tab" href="#trending-posts">Trending</a>
+                        <a class="nav-link" data-bs-toggle="tab" href="#trending-posts">Top Tags</a>
                     </li>
                 </ul>
 
@@ -191,24 +205,29 @@
                         ?>
                     </div>
                     <div class="tab-pane" id="trending-posts">
-                        <div class="card">
-                            <br>
-                            <p class="d-flex justify-content-center">No posts to show</p>
-                            <br>
-                        </div>
                         <?php
                             $tab = "tab_trends";
+                            $post->loadPosts($tab);
                         ?>
                     </div>
                 </div>
             </div>
         </div>
         <div class="col-md-2">
-            <div class="row">
-                <div class="card">Add Friends</div>
-            </div>
-            <div class="row">
-                Messages
+            <div class="row mx-1 d-none d-md-block">
+                <div class="card">
+                    <h5>Top Tags:</h5>
+                    <?php
+                        // query to select distinct topics in posts that is not null
+                        $query = mysqli_query($connect, "SELECT DISTINCT topics FROM `posts` WHERE topics IS NOT NULL AND TRIM(topics) <> ' ' LIMIT 10");
+
+                        while($row = mysqli_fetch_array($query)){
+                            $tag = $row['topics'];
+
+                            echo str_replace(",","<br>","$tag"); // replace "," with "<br>" in $tag
+                        }
+                    ?>
+                </div>
             </div>
         </div>
     </div>
