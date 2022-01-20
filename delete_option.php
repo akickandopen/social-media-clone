@@ -44,10 +44,12 @@
     <div class="card">
         <h3>Delete Post</h3>
         <p>Are you sure you want to delete this post?</p>
-        <a href="index.php" class="btn btn-secondary">Go Back</a>
-        <form action="delete_option.php?post_id=<?php echo $post_id;?>" method="POST">
-            <input type="submit" name="delete-btn" value="Delete" class="btn btn-primary">
-        </form>
+        <div class="settings-option">
+            <a href="index.php" class="btn back-btn">Go Back</a>
+            <form action="delete_option.php?post_id=<?php echo $post_id;?>" method="POST">
+                <input type="submit" name="delete-btn" value="Delete" class="btn go-btn">
+            </form>
+        </div>
     </div>
 </div>
 

@@ -18,7 +18,7 @@
     $post_by_id = $row['user_by_id']; // id of user who posted
     $previous_body = $row['body'];
 
-    // remove post from database
+    // edit post from database
     if (isset($_POST['save-post'])){
 
         $new_body = $_POST['post-text-area'];
@@ -37,12 +37,12 @@
     <div class="card">
         <h3>Edit Post</h3>
         <form action="edit_option.php?post_id=<?php echo $post_id;?>" method="POST">
-            <div class="body d-flex align-items-start">
+            <div class="edit-body d-flex align-items-start">
                 <textarea name="post-text-area" id="postTextArea" placeholder="<?php echo $previous_body;?>"></textarea>
             </div>
-            <div class="options d-flex justify-content-end align-items-center">
-                <a href="index.php" class="btn btn-secondary">Go Back</a>
-                <input type="submit" name="save-post" id="postSubmitBtn" value="Save Changes">
+            <div class="settings-option">
+                <a href="index.php" class="btn back-btn">Go Back</a>
+                <input type="submit" name="save-post" class="btn go-btn" value="Save Changes">
             </div>
         </form>
     </div>
