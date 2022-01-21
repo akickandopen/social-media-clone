@@ -43,6 +43,15 @@
     background-color: transparent;
 }
 
+.update-profile-btn{
+    background-color: #5EA3A3;
+    color: white;
+}
+
+.update-profile-btn:hover {
+    background-color: #488B8F;
+}
+
 .card-a {
     margin-bottom: 12px;
     padding: 12px 12px 0px 12px;
@@ -202,6 +211,13 @@
 
 .comment-form textarea {
     width: 100%;
+    border-radius: 16px;
+    height: 36px;
+}
+
+.comment-form button {
+    background: transparent;
+    border: none;
 }
 /**********************************LIKES**********************************/
 

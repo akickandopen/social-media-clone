@@ -253,7 +253,7 @@
                     <input type="text" name="new-last-name" id="lastName" value="<?php echo $user_obj->getLastName(); ?>"><br>
                     
                     <hr>
-                    <input type="submit" name="update-profile" class="btn btn-primary" value="Save Changes">
+                    <input type="submit" name="update-profile" class="btn update-profile-btn" value="Save Changes">
                 </form>
             </div>
 

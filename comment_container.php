@@ -29,6 +29,7 @@
     <!--CSS-->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link rel="stylesheet" href="resources/css/newsfeed_style.css">
 </head>
 <body class="background">
@@ -187,7 +188,9 @@
 
     <form action="comment_container.php?post_id=<?php echo $post_id; ?>" class="comment-form" id="commentForm" name="postComment<?php echo $post_id;?>" method="POST">
         <textarea name="comment_body"></textarea>
-        <input type="submit" name="postComment<?php echo $post_id; ?>" value="Post">
+        <button type="submit" name="postComment<?php echo $post_id; ?>" value="Post">
+            <i class="material-icons">send</i>
+        </button>
     </form>
 
 </body>
